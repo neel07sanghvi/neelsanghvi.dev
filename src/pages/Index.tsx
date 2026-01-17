@@ -1,5 +1,6 @@
 import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider';
 import Hero from '@/components/sections/Hero';
+import About from '@/components/sections/About';
 
 const Index = () => {
   return (
@@ -9,11 +10,7 @@ const Index = () => {
       
       <main className="relative">
         <Hero />
-        
-        {/* Placeholder sections - to be built */}
-        <section id="about" className="min-h-screen bg-about flex items-center justify-center">
-          <p className="text-muted-foreground text-lg">About Section - Coming Next</p>
-        </section>
+        <About />
         
         <section id="experience" className="min-h-screen bg-experience flex items-center justify-center">
           <p className="text-muted-foreground text-lg">Experience Section</p>
