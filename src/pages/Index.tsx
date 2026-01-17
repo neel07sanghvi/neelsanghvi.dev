@@ -1,47 +1,37 @@
-import GenerativeCanvas from '@/components/GenerativeCanvas';
+import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider';
+import Hero from '@/components/sections/Hero';
 
 const Index = () => {
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      <GenerativeCanvas />
+    <SmoothScrollProvider>
+      {/* Noise texture overlay for cinematic feel */}
+      <div className="noise-overlay" />
       
-      {/* Content Layer */}
-      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6">
-        <div className="text-center">
-          <p className="mb-4 text-sm font-medium uppercase tracking-[0.3em] text-purple-400/80">
-            Frontend Developer
-          </p>
-          
-          <h1 className="mb-6 text-6xl font-bold tracking-tight text-white md:text-8xl">
-            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
-              Your Name
-            </span>
-          </h1>
-          
-          <p className="mx-auto max-w-md text-lg text-white/50">
-            Move your cursor around to interact with the particles
-          </p>
-
-          <div className="mt-12 flex gap-4 justify-center">
-            <button className="group relative px-8 py-3 overflow-hidden rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-white transition-all hover:bg-white/10 hover:border-purple-500/50">
-              <span className="relative z-10">View Projects</span>
-              <div className="absolute inset-0 -z-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 opacity-0 transition-opacity group-hover:opacity-100" />
-            </button>
-            
-            <button className="px-8 py-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-medium transition-transform hover:scale-105">
-              Contact Me
-            </button>
-          </div>
-        </div>
-
-        {/* Floating elements */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="h-6 w-4 rounded-full border-2 border-white/20 flex justify-center pt-1">
-            <div className="h-1.5 w-0.5 rounded-full bg-white/40" />
-          </div>
-        </div>
-      </div>
-    </div>
+      <main className="relative">
+        <Hero />
+        
+        {/* Placeholder sections - to be built */}
+        <section id="about" className="min-h-screen bg-about flex items-center justify-center">
+          <p className="text-muted-foreground text-lg">About Section - Coming Next</p>
+        </section>
+        
+        <section id="experience" className="min-h-screen bg-experience flex items-center justify-center">
+          <p className="text-muted-foreground text-lg">Experience Section</p>
+        </section>
+        
+        <section id="skills" className="min-h-screen bg-skills flex items-center justify-center">
+          <p className="text-muted-foreground text-lg">Skills Section</p>
+        </section>
+        
+        <section id="projects" className="min-h-screen bg-projects flex items-center justify-center">
+          <p className="text-muted-foreground text-lg">Projects Section</p>
+        </section>
+        
+        <section id="contact" className="min-h-screen bg-contact flex items-center justify-center">
+          <p className="text-muted-foreground text-lg">Contact Section</p>
+        </section>
+      </main>
+    </SmoothScrollProvider>
   );
 };
 
