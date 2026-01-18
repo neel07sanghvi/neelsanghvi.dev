@@ -4,10 +4,27 @@ import AnimatedCounter from '@/components/ui/AnimatedCounter';
 import TextReveal from '@/components/ui/TextReveal';
 
 const stats = [
-  { end: 2, suffix: '+', label: 'Years Experience' },
+  { end: 3, suffix: '+', label: 'Years Experience' },
   { end: 500, suffix: '+', label: 'LeetCode Problems' },
-  { end: 114, prefix: '#', label: 'CodeChef Global' },
   { end: 1, suffix: 'st', label: 'ICPC University' },
+];
+
+const achievements = [
+  { 
+    title: 'Frontend Developer Certificate', 
+    source: 'HackerRank',
+    url: 'https://www.hackerrank.com/certificates/f4cd71c80533'
+  },
+  { 
+    title: 'Problem Solving Intermediate', 
+    source: 'HackerRank',
+    url: 'https://www.hackerrank.com/certificates/8efc8c0c075b'
+  },
+  { 
+    title: 'Why C++ is Best for Competitive Programming?', 
+    source: 'GeeksforGeeks Article',
+    url: 'https://www.geeksforgeeks.org/cpp/why-cpp-is-best-for-competitive-programming/'
+  },
 ];
 
 const About = () => {
@@ -43,7 +60,7 @@ const About = () => {
           <div className="space-y-6">
             <TextReveal delay={0.1}>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                I'm a <span className="text-foreground font-medium">Full Stack Developer</span> with 2+ years of experience building 
+                I'm a <span className="text-foreground font-medium">Full Stack Developer</span> with 3+ years of experience building 
                 modern web and mobile applications. I specialize in React, Next.js, 
                 Node.js, and cloud technologies.
               </p>
@@ -80,17 +97,47 @@ const About = () => {
           </div>
 
           {/* Stats grid - right side */}
-          <div className="grid grid-cols-2 gap-4">
-            {stats.map((stat, index) => (
-              <AnimatedCounter
-                key={stat.label}
-                end={stat.end}
-                suffix={stat.suffix}
-                prefix={stat.prefix}
-                label={stat.label}
-                duration={2 + index * 0.2}
-              />
-            ))}
+          <div className="space-y-8">
+            <div className="grid grid-cols-3 gap-4">
+              {stats.map((stat, index) => (
+                <AnimatedCounter
+                  key={stat.label}
+                  end={stat.end}
+                  suffix={stat.suffix}
+                  label={stat.label}
+                  duration={2 + index * 0.2}
+                />
+              ))}
+            </div>
+
+            {/* Certificates & Articles */}
+            <TextReveal delay={0.5}>
+              <div className="space-y-3">
+                <h3 className="text-sm font-medium uppercase tracking-[0.2em] text-accent-blue mb-4">
+                  Certifications & Publications
+                </h3>
+                {achievements.map((item, index) => (
+                  <motion.a
+                    key={item.title}
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
+                    className="group block p-4 rounded-lg border border-accent-blue/20 bg-accent-blue/5 hover:bg-accent-blue/10 hover:border-accent-blue/40 transition-all duration-300"
+                  >
+                    <p className="text-foreground font-medium group-hover:text-accent-blue transition-colors">
+                      {item.title}
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {item.source}
+                    </p>
+                  </motion.a>
+                ))}
+              </div>
+            </TextReveal>
           </div>
         </div>
 
