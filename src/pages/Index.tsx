@@ -2,6 +2,7 @@ import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider';
 import Hero from '@/components/sections/Hero';
 import About from '@/components/sections/About';
 import Experience from '@/components/sections/Experience';
+import Skills from '@/components/sections/Skills';
 
 const Index = () => {
   return (
@@ -13,10 +14,7 @@ const Index = () => {
         <Hero />
         <About />
         <Experience />
-        
-        <section id="skills" className="min-h-screen bg-skills flex items-center justify-center">
-          <p className="text-muted-foreground text-lg">Skills Section</p>
-        </section>
+        <Skills />
         
         <section id="projects" className="min-h-screen bg-projects flex items-center justify-center">
           <p className="text-muted-foreground text-lg">Projects Section</p>
