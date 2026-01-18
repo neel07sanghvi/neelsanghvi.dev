@@ -1,219 +1,184 @@
 import { motion } from 'framer-motion';
-import { useState, useMemo } from 'react';
 import TextReveal from '@/components/ui/TextReveal';
 import SkillNode from '@/components/ui/SkillNode';
-import ConstellationLines from '@/components/ui/ConstellationLines';
-import SkillLegend from '@/components/ui/SkillLegend';
 
-// Skill data with cleaner clustered positions
+// Scattered skill positions across the space
 const skillsData = [
-  // Languages cluster (top-center)
-  { name: 'TypeScript', category: 'Languages', x: 48, y: 12, size: 'lg' as const },
-  { name: 'JavaScript', category: 'Languages', x: 38, y: 18, size: 'md' as const },
-  { name: 'Python', category: 'Languages', x: 58, y: 18, size: 'md' as const },
-  { name: 'C++', category: 'Languages', x: 32, y: 10, size: 'sm' as const },
-  { name: 'C', category: 'Languages', x: 64, y: 10, size: 'sm' as const },
-  { name: 'Golang', category: 'Languages', x: 52, y: 6, size: 'sm' as const },
-  { name: 'SQL', category: 'Languages', x: 44, y: 22, size: 'sm' as const },
+  // Languages (purple) - upper area
+  { name: 'TypeScript', category: 'Language', x: 42, y: 14, size: 'lg' as const },
+  { name: 'Python', category: 'Language', x: 48, y: 8, size: 'md' as const },
+  { name: 'C++', category: 'Language', x: 58, y: 12, size: 'sm' as const },
+  { name: 'JavaScript', category: 'Language', x: 50, y: 24, size: 'md' as const },
+  { name: 'Golang', category: 'Language', x: 35, y: 10, size: 'sm' as const },
+  { name: 'SQL', category: 'Language', x: 62, y: 6, size: 'sm' as const },
+  { name: 'C', category: 'Language', x: 28, y: 8, size: 'sm' as const },
 
-  // Frontend cluster (left side)
-  { name: 'React', category: 'Frontend', x: 18, y: 38, size: 'lg' as const },
-  { name: 'Next.js', category: 'Frontend', x: 28, y: 32, size: 'lg' as const },
-  { name: 'React Native', category: 'Frontend', x: 12, y: 48, size: 'md' as const },
-  { name: 'Redux', category: 'Frontend', x: 24, y: 46, size: 'md' as const },
-  { name: 'Recoil', category: 'Frontend', x: 8, y: 56, size: 'sm' as const },
-  { name: 'Zustand', category: 'Frontend', x: 18, y: 58, size: 'sm' as const },
-  { name: 'TailwindCSS', category: 'Frontend', x: 32, y: 54, size: 'md' as const },
-  { name: 'MUI', category: 'Frontend', x: 10, y: 66, size: 'sm' as const },
-  { name: 'Shadcn', category: 'Frontend', x: 22, y: 68, size: 'sm' as const },
+  // Frontend (blue) - left side
+  { name: 'React', category: 'Frontend', x: 14, y: 32, size: 'lg' as const },
+  { name: 'Next.js', category: 'Frontend', x: 22, y: 20, size: 'lg' as const },
+  { name: 'React Native', category: 'Frontend', x: 8, y: 58, size: 'md' as const },
+  { name: 'Redux', category: 'Frontend', x: 6, y: 44, size: 'sm' as const },
+  { name: 'Tailwind', category: 'Frontend', x: 26, y: 38, size: 'md' as const },
+  { name: 'Zustand', category: 'Frontend', x: 16, y: 52, size: 'sm' as const },
+  { name: 'Recoil', category: 'Frontend', x: 10, y: 68, size: 'sm' as const },
+  { name: 'MUI', category: 'Frontend', x: 20, y: 62, size: 'sm' as const },
+  { name: 'Shadcn', category: 'Frontend', x: 28, y: 50, size: 'sm' as const },
 
-  // Backend cluster (right side)
-  { name: 'Node.js', category: 'Backend', x: 78, y: 36, size: 'lg' as const },
-  { name: 'NestJS', category: 'Backend', x: 86, y: 44, size: 'md' as const },
-  { name: 'Express', category: 'Backend', x: 72, y: 48, size: 'md' as const },
-  { name: 'WebSocket', category: 'Backend', x: 90, y: 54, size: 'sm' as const },
-  { name: 'WebRTC', category: 'Backend', x: 82, y: 58, size: 'sm' as const },
+  // Backend (green) - right side
+  { name: 'Node.js', category: 'Backend', x: 72, y: 32, size: 'lg' as const },
+  { name: 'NestJS', category: 'Backend', x: 82, y: 18, size: 'md' as const },
+  { name: 'Express', category: 'Backend', x: 88, y: 38, size: 'md' as const },
+  { name: 'WebSocket', category: 'Backend', x: 70, y: 44, size: 'sm' as const },
+  { name: 'WebRTC', category: 'Backend', x: 78, y: 50, size: 'sm' as const },
 
-  // Database cluster (center-bottom)
-  { name: 'PostgreSQL', category: 'Database', x: 48, y: 52, size: 'lg' as const },
-  { name: 'MongoDB', category: 'Database', x: 56, y: 46, size: 'md' as const },
-  { name: 'Firebase', category: 'Database', x: 40, y: 60, size: 'md' as const },
-  { name: 'Prisma ORM', category: 'Database', x: 58, y: 58, size: 'sm' as const },
-  { name: 'MySQL', category: 'Database', x: 44, y: 68, size: 'sm' as const },
-  { name: 'Supabase', category: 'Database', x: 54, y: 66, size: 'md' as const },
+  // AI (gold/yellow) - center
+  { name: 'LLMs', category: 'AI', x: 48, y: 48, size: 'xl' as const },
+  { name: 'LangChain', category: 'AI', x: 38, y: 56, size: 'sm' as const },
+  { name: 'Kafka', category: 'Other', x: 55, y: 62, size: 'sm' as const },
 
-  // DevOps cluster (bottom-right)
-  { name: 'AWS', category: 'DevOps', x: 76, y: 72, size: 'lg' as const },
-  { name: 'Docker', category: 'DevOps', x: 68, y: 78, size: 'md' as const },
-  { name: 'CI/CD', category: 'DevOps', x: 84, y: 80, size: 'sm' as const },
-  { name: 'Cloudflare', category: 'DevOps', x: 72, y: 86, size: 'sm' as const },
-  { name: 'Vercel', category: 'DevOps', x: 88, y: 68, size: 'sm' as const },
-  { name: 'Netlify', category: 'DevOps', x: 80, y: 88, size: 'sm' as const },
+  // Database (pink) - right-bottom
+  { name: 'PostgreSQL', category: 'Database', x: 72, y: 62, size: 'lg' as const },
+  { name: 'MongoDB', category: 'Database', x: 86, y: 54, size: 'md' as const },
+  { name: 'Redis', category: 'Database', x: 64, y: 72, size: 'sm' as const },
+  { name: 'Prisma', category: 'Database', x: 78, y: 70, size: 'sm' as const },
+  { name: 'Firebase', category: 'Database', x: 56, y: 78, size: 'sm' as const },
+  { name: 'MySQL', category: 'Database', x: 68, y: 82, size: 'sm' as const },
+  { name: 'Supabase', category: 'Database', x: 82, y: 78, size: 'sm' as const },
 
-  // Tools cluster (bottom-left)
-  { name: 'LLMs', category: 'Tools', x: 22, y: 80, size: 'md' as const },
-  { name: 'LangChain', category: 'Tools', x: 14, y: 86, size: 'sm' as const },
-  { name: 'Redis', category: 'Tools', x: 30, y: 88, size: 'sm' as const },
-  { name: 'Kafka', category: 'Tools', x: 8, y: 78, size: 'sm' as const },
-  { name: 'Serverless', category: 'Tools', x: 36, y: 82, size: 'sm' as const },
-  { name: 'GraphQL', category: 'Tools', x: 26, y: 92, size: 'sm' as const },
+  // DevOps (orange) - bottom-left
+  { name: 'Docker', category: 'DevOps', x: 32, y: 72, size: 'md' as const },
+  { name: 'AWS', category: 'DevOps', x: 22, y: 82, size: 'lg' as const },
+  { name: 'CI/CD', category: 'DevOps', x: 42, y: 84, size: 'sm' as const },
+  { name: 'Cloudflare', category: 'DevOps', x: 28, y: 90, size: 'sm' as const },
+  { name: 'Vercel', category: 'DevOps', x: 52, y: 88, size: 'sm' as const },
+  { name: 'Netlify', category: 'DevOps', x: 38, y: 92, size: 'sm' as const },
+
+  // Other
+  { name: 'GraphQL', category: 'Other', x: 44, y: 68, size: 'sm' as const },
+  { name: 'Serverless', category: 'Other', x: 18, y: 76, size: 'sm' as const },
 ];
 
 // Category colors
 const categoryColors: Record<string, string> = {
-  Languages: 'hsl(263, 70%, 71%)',    // purple
-  Frontend: 'hsl(217, 92%, 69%)',     // blue
-  Backend: 'hsl(160, 84%, 52%)',      // green
+  Language: 'hsl(263, 70%, 71%)',     // purple
+  Frontend: 'hsl(210, 100%, 66%)',    // bright blue
+  Backend: 'hsl(152, 76%, 52%)',      // green
   Database: 'hsl(330, 71%, 66%)',     // pink
   DevOps: 'hsl(27, 96%, 61%)',        // orange
-  Tools: 'hsl(45, 93%, 58%)',         // gold
+  AI: 'hsl(45, 93%, 58%)',            // gold
+  Other: 'hsl(220, 15%, 60%)',        // gray
 };
 
-// Generate connections within clusters
-const generateConnections = () => {
-  const connections: { from: { x: number; y: number }; to: { x: number; y: number }; color: string }[] = [];
-  
-  const categories = [...new Set(skillsData.map(s => s.category))];
-  
-  categories.forEach(category => {
-    const categorySkills = skillsData.filter(s => s.category === category);
-    const color = categoryColors[category];
-    
-    // Connect first skill to next few in category
-    for (let i = 0; i < categorySkills.length - 1; i++) {
-      connections.push({
-        from: { x: categorySkills[i].x, y: categorySkills[i].y },
-        to: { x: categorySkills[i + 1].x, y: categorySkills[i + 1].y },
-        color,
-      });
-    }
-  });
+const legendItems = [
+  { name: 'Frontend', color: categoryColors.Frontend },
+  { name: 'Backend', color: categoryColors.Backend },
+  { name: 'Database', color: categoryColors.Database },
+  { name: 'DevOps', color: categoryColors.DevOps },
+  { name: 'Language', color: categoryColors.Language },
+  { name: 'AI', color: categoryColors.AI },
+  { name: 'Other', color: categoryColors.Other },
+];
 
-  return connections;
+// Generate random but consistent star positions
+const generateStars = (count: number) => {
+  const stars = [];
+  for (let i = 0; i < count; i++) {
+    stars.push({
+      x: (i * 7.3) % 100,
+      y: (i * 11.7) % 100,
+      size: (i % 3) + 1,
+      opacity: 0.2 + (i % 5) * 0.1,
+    });
+  }
+  return stars;
 };
+
+const backgroundStars = generateStars(80);
 
 const Skills = () => {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  
-  const connections = useMemo(() => generateConnections(), []);
-  
-  const categories = useMemo(() => {
-    const cats = [...new Set(skillsData.map(s => s.category))];
-    return cats.map(cat => ({
-      name: cat,
-      color: categoryColors[cat],
-      count: skillsData.filter(s => s.category === cat).length,
-    }));
-  }, []);
-
-  const filteredSkills = activeCategory 
-    ? skillsData.filter(s => s.category === activeCategory)
-    : skillsData;
-
-  const filteredConnections = activeCategory
-    ? connections.filter(c => {
-        const skill1 = skillsData.find(s => s.x === c.from.x && s.y === c.from.y);
-        const skill2 = skillsData.find(s => s.x === c.to.x && s.y === c.to.y);
-        return skill1?.category === activeCategory || skill2?.category === activeCategory;
-      })
-    : connections;
-
   return (
-    <section 
-      id="skills" 
+    <section
+      id="skills"
       className="relative min-h-screen py-24 md:py-32 overflow-hidden"
       style={{ backgroundColor: 'hsl(var(--skills-bg))' }}
     >
-      {/* Static distant stars background */}
+      {/* Background stars */}
       <div className="absolute inset-0">
-        {[...Array(30)].map((_, i) => (
+        {backgroundStars.map((star, i) => (
           <div
             key={i}
-            className="absolute w-0.5 h-0.5 bg-white/30 rounded-full"
+            className="absolute rounded-full bg-white"
             style={{
-              left: `${(i * 37) % 100}%`,
-              top: `${(i * 23) % 100}%`,
+              left: `${star.x}%`,
+              top: `${star.y}%`,
+              width: star.size,
+              height: star.size,
+              opacity: star.opacity,
             }}
           />
         ))}
       </div>
 
-      {/* Nebula glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-20 blur-3xl bg-gradient-radial from-accent-purple/30 via-accent-blue/20 to-transparent" />
+      {/* Nebula glows */}
+      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] rounded-full opacity-10 blur-3xl bg-accent-blue" />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full opacity-10 blur-3xl bg-accent-purple" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full opacity-15 blur-3xl bg-yellow-500" />
 
-      <div className="container relative z-10 mx-auto px-6 max-w-6xl">
+      <div className="container relative z-10 mx-auto px-6 max-w-7xl">
         {/* Section Header */}
-        <div className="text-center mb-12 md:mb-16">
-          <TextReveal>
-            <motion.span 
-              className="inline-block px-4 py-1.5 text-sm font-mono text-accent-purple border border-accent-purple/30 rounded-full mb-6"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-            >
-              The Constellation
-            </motion.span>
-          </TextReveal>
-          
+        <div className="text-center mb-8">
           <TextReveal delay={0.1}>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-foreground">
-              Skills & Technologies
+              Skills Constellation
             </h2>
           </TextReveal>
-          
+
           <TextReveal delay={0.2}>
-            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-              A universe of tools and technologies I work with
+            <p className="mt-4 text-lg text-muted-foreground">
+              Hover over stars to explore connections
             </p>
           </TextReveal>
         </div>
 
-        {/* Legend */}
-        <div className="mb-8">
-          <SkillLegend 
-            categories={categories}
-            activeCategory={activeCategory}
-            onCategoryHover={setActiveCategory}
-          />
-        </div>
-
         {/* Constellation Container */}
-        <motion.div 
-          className="relative w-full aspect-[16/10] md:aspect-[2/1] min-h-[400px] md:min-h-[500px]"
+        <motion.div
+          className="relative w-full aspect-[16/12] md:aspect-[16/10] min-h-[500px] md:min-h-[600px]"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          {/* Connection lines */}
-          <ConstellationLines connections={filteredConnections} />
-
           {/* Skill nodes */}
-          {filteredSkills.map((skill, index) => (
+          {skillsData.map((skill, index) => (
             <SkillNode
               key={skill.name}
               name={skill.name}
-              category={skill.category}
               color={categoryColors[skill.category]}
               size={skill.size}
               x={skill.x}
               y={skill.y}
-              delay={index * 0.03}
+              delay={index * 0.02}
             />
           ))}
         </motion.div>
 
-        {/* Total skills count */}
+        {/* Legend at bottom */}
         <motion.div
-          className="text-center mt-8"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          className="flex flex-wrap justify-center gap-6 md:gap-8 mt-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
         >
-          <span className="text-sm font-mono text-muted-foreground">
-            {skillsData.length} technologies across {categories.length} domains
-          </span>
+          {legendItems.map((item) => (
+            <div key={item.name} className="flex items-center gap-2">
+              <div
+                className="w-3 h-3 rounded-full"
+                style={{ backgroundColor: item.color }}
+              />
+              <span className="text-sm text-muted-foreground">{item.name}</span>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>
