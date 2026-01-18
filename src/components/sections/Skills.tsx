@@ -7,51 +7,54 @@ import SkillLegend from "@/components/ui/SkillLegend";
 
 // Skill data with cleaner clustered positions
 const skillsData = [
-  // Languages cluster (top-left)
-  { name: "JavaScript", category: "Languages", x: 12, y: 8, size: "lg" as const },
-  { name: "TypeScript", category: "Languages", x: 22, y: 6, size: "md" as const },
-  { name: "C", category: "Languages", x: 30, y: 10, size: "sm" as const },
-  { name: "C++", category: "Languages", x: 36, y: 6, size: "sm" as const },
-  { name: "Java", category: "Languages", x: 8, y: 16, size: "sm" as const },
-  { name: "Python", category: "Languages", x: 18, y: 18, size: "md" as const },
-  { name: "SQL", category: "Languages", x: 28, y: 18, size: "sm" as const },
+  // Languages cluster (top-center)
+  { name: "TypeScript", category: "Languages", x: 48, y: 12, size: "lg" as const },
+  { name: "JavaScript", category: "Languages", x: 38, y: 18, size: "md" as const },
+  { name: "Python", category: "Languages", x: 58, y: 18, size: "md" as const },
+  { name: "C++", category: "Languages", x: 32, y: 10, size: "sm" as const },
+  { name: "C", category: "Languages", x: 64, y: 10, size: "sm" as const },
+  { name: "Golang", category: "Languages", x: 52, y: 6, size: "sm" as const },
+  { name: "SQL", category: "Languages", x: 44, y: 22, size: "sm" as const },
 
-  // Frontend cluster (top-center)
-  { name: "ReactJs", category: "Frontend", x: 48, y: 6, size: "lg" as const },
-  { name: "NextJs", category: "Frontend", x: 56, y: 10, size: "md" as const },
-  { name: "React Native", category: "Frontend", x: 64, y: 6, size: "md" as const },
-  { name: "Redux", category: "Frontend", x: 46, y: 16, size: "sm" as const },
-  { name: "Recoil", category: "Frontend", x: 54, y: 18, size: "sm" as const },
-  { name: "Zustand", category: "Frontend", x: 62, y: 16, size: "sm" as const },
-  { name: "TailwindCSS", category: "Frontend", x: 70, y: 18, size: "sm" as const },
-  { name: "MUI", category: "Frontend", x: 50, y: 24, size: "sm" as const },
+  // Frontend cluster (left side)
+  { name: "React", category: "Frontend", x: 10, y: 30, size: "lg" as const },
+  { name: "Next.js", category: "Frontend", x: 20, y: 30, size: "lg" as const },
+  { name: "React Native", category: "Frontend", x: 12, y: 48, size: "md" as const },
+  { name: "Redux", category: "Frontend", x: 24, y: 46, size: "md" as const },
+  { name: "Recoil", category: "Frontend", x: 8, y: 56, size: "sm" as const },
+  { name: "Zustand", category: "Frontend", x: 18, y: 58, size: "sm" as const },
+  { name: "TailwindCSS", category: "Frontend", x: 32, y: 54, size: "md" as const },
+  { name: "MUI", category: "Frontend", x: 10, y: 66, size: "sm" as const },
+  { name: "Shadcn", category: "Frontend", x: 22, y: 68, size: "sm" as const },
 
-  // Backend cluster (top-right)
-  { name: "NodeJs", category: "Backend", x: 82, y: 6, size: "lg" as const },
-  { name: "NestJs", category: "Backend", x: 88, y: 12, size: "md" as const },
-  { name: "ExpressJs", category: "Backend", x: 94, y: 6, size: "md" as const },
-  { name: "WebSocket", category: "Backend", x: 86, y: 20, size: "sm" as const },
+  // Backend cluster (right side - moved up)
+  { name: "Node.js", category: "Backend", x: 78, y: 28, size: "lg" as const },
+  { name: "NestJS", category: "Backend", x: 86, y: 36, size: "md" as const },
+  { name: "Express", category: "Backend", x: 72, y: 40, size: "md" as const },
+  { name: "WebSocket", category: "Backend", x: 90, y: 44, size: "sm" as const },
+  { name: "WebRTC", category: "Backend", x: 82, y: 48, size: "sm" as const },
+  { name: "GraphQL", category: "Backend", x: 76, y: 54, size: "sm" as const },
+  { name: "Kafka", category: "Backend", x: 88, y: 56, size: "sm" as const },
+  { name: "LLMs", category: "Backend", x: 80, y: 60, size: "md" as const },
+  { name: "LangChain", category: "Backend", x: 72, y: 64, size: "sm" as const },
 
-  // Databases cluster (bottom-left)
-  { name: "MongoDB", category: "Database", x: 10, y: 50, size: "lg" as const },
-  { name: "PostgreSQL", category: "Database", x: 20, y: 46, size: "md" as const },
-  { name: "Firebase", category: "Database", x: 28, y: 52, size: "md" as const },
-  { name: "Prisma ORM", category: "Database", x: 8, y: 60, size: "sm" as const },
-  { name: "MySQL", category: "Database", x: 18, y: 58, size: "sm" as const },
+  // Database cluster (center-bottom)
+  { name: "PostgreSQL", category: "Database", x: 48, y: 52, size: "lg" as const },
+  { name: "MongoDB", category: "Database", x: 56, y: 46, size: "md" as const },
+  { name: "Firebase", category: "Database", x: 40, y: 60, size: "md" as const },
+  { name: "Prisma ORM", category: "Database", x: 58, y: 58, size: "sm" as const },
+  { name: "MySQL", category: "Database", x: 44, y: 68, size: "sm" as const },
+  { name: "Supabase", category: "Database", x: 54, y: 66, size: "md" as const },
+  { name: "Redis", category: "Database", x: 62, y: 64, size: "sm" as const },
 
-  // DevOps cluster (bottom-center)
-  { name: "Docker", category: "DevOps", x: 44, y: 48, size: "lg" as const },
-  { name: "CI/CD", category: "DevOps", x: 54, y: 44, size: "md" as const },
-  { name: "AWS", category: "DevOps", x: 64, y: 48, size: "md" as const },
-  { name: "Cloudflare Workers", category: "DevOps", x: 52, y: 56, size: "sm" as const },
-
-  // Other Tools & Technologies cluster (bottom-right)
-  { name: "LLMs", category: "Other", x: 78, y: 44, size: "lg" as const },
-  { name: "Redis", category: "Other", x: 86, y: 48, size: "md" as const },
-  { name: "Kafka", category: "Other", x: 94, y: 44, size: "sm" as const },
-  { name: "Serverless", category: "Other", x: 76, y: 54, size: "sm" as const },
-  { name: "WebRTC", category: "Other", x: 84, y: 58, size: "sm" as const },
-  { name: "Supabase", category: "Other", x: 92, y: 56, size: "sm" as const },
+  // DevOps cluster (bottom-right)
+  { name: "AWS", category: "DevOps", x: 76, y: 82, size: "lg" as const },
+  { name: "Docker", category: "DevOps", x: 68, y: 88, size: "md" as const },
+  { name: "CI/CD", category: "DevOps", x: 84, y: 90, size: "sm" as const },
+  { name: "Cloudflare", category: "DevOps", x: 72, y: 94, size: "sm" as const },
+  { name: "Vercel", category: "DevOps", x: 88, y: 78, size: "sm" as const },
+  { name: "Netlify", category: "DevOps", x: 80, y: 96, size: "sm" as const },
+  { name: "Serverless", category: "DevOps", x: 90, y: 86, size: "sm" as const },
 ];
 
 // Category colors
@@ -61,50 +64,61 @@ const categoryColors: Record<string, string> = {
   Backend: "hsl(160, 84%, 52%)", // green
   Database: "hsl(330, 71%, 66%)", // pink
   DevOps: "hsl(27, 96%, 61%)", // orange
-  Other: "hsl(47, 96%, 61%)", // yellow/gold
 };
 
-// Define explicit connections for each cluster
+// Define explicit connections for each cluster (matching the reference design)
 const explicitConnections = [
-  // Languages cluster - branching from JavaScript
-  { from: "JavaScript", to: "TypeScript" },
-  { from: "TypeScript", to: "C" },
-  { from: "C", to: "C++" },
-  { from: "JavaScript", to: "Java" },
-  { from: "JavaScript", to: "Python" },
-  { from: "Python", to: "SQL" },
+  // Languages cluster - star pattern from TypeScript
+  { from: "TypeScript", to: "JavaScript" },
+  { from: "TypeScript", to: "Python" },
+  { from: "TypeScript", to: "Golang" },
+  { from: "JavaScript", to: "C++" },
+  { from: "JavaScript", to: "SQL" },
+  { from: "Python", to: "C" },
+  { from: "C++", to: "C" },
 
-  // Frontend cluster - branching from ReactJs
-  { from: "ReactJs", to: "NextJs" },
-  { from: "ReactJs", to: "React Native" },
-  { from: "ReactJs", to: "Redux" },
-  { from: "NextJs", to: "Recoil" },
-  { from: "React Native", to: "Zustand" },
-  { from: "Zustand", to: "TailwindCSS" },
-  { from: "Redux", to: "MUI" },
+  // Frontend cluster - branching from React/Next.js
+  { from: "React", to: "Next.js" },
+  { from: "React", to: "React Native" },
+  { from: "React", to: "Redux" },
+  { from: "React Native", to: "Recoil" },
+  { from: "Redux", to: "Zustand" },
+  { from: "Next.js", to: "TailwindCSS" },
+  { from: "Recoil", to: "MUI" },
+  { from: "Zustand", to: "Shadcn" },
+  { from: "TailwindCSS", to: "Shadcn" },
 
-  // Backend cluster - branching from NodeJs
-  { from: "NodeJs", to: "NestJs" },
-  { from: "NodeJs", to: "ExpressJs" },
-  { from: "NestJs", to: "WebSocket" },
+  // Backend cluster - branching from Node.js
+  { from: "Node.js", to: "NestJS" },
+  { from: "Node.js", to: "Express" },
+  { from: "NestJS", to: "WebSocket" },
+  { from: "Express", to: "WebRTC" },
+  { from: "WebSocket", to: "WebRTC" },
+  { from: "Express", to: "GraphQL" },
+  { from: "NestJS", to: "Kafka" },
+  { from: "GraphQL", to: "LLMs" },
+  { from: "LLMs", to: "LangChain" },
+  { from: "Kafka", to: "LLMs" },
 
-  // Database cluster - branching from MongoDB
-  { from: "MongoDB", to: "PostgreSQL" },
+  // Database cluster - branching from PostgreSQL
+  { from: "PostgreSQL", to: "MongoDB" },
   { from: "PostgreSQL", to: "Firebase" },
   { from: "MongoDB", to: "Prisma ORM" },
-  { from: "Prisma ORM", to: "MySQL" },
+  { from: "Firebase", to: "MySQL" },
+  { from: "Prisma ORM", to: "Supabase" },
+  { from: "MySQL", to: "Supabase" },
+  { from: "Prisma ORM", to: "Redis" },
+  { from: "Supabase", to: "Redis" },
 
-  // DevOps cluster - branching from Docker
-  { from: "Docker", to: "CI/CD" },
-  { from: "CI/CD", to: "AWS" },
-  { from: "Docker", to: "Cloudflare Workers" },
-
-  // Other Tools cluster - branching from LLMs
-  { from: "LLMs", to: "Redis" },
-  { from: "Redis", to: "Kafka" },
-  { from: "LLMs", to: "Serverless" },
-  { from: "Serverless", to: "WebRTC" },
-  { from: "Redis", to: "Supabase" },
+  // DevOps cluster - branching from AWS
+  { from: "AWS", to: "Docker" },
+  { from: "AWS", to: "Vercel" },
+  { from: "AWS", to: "CI/CD" },
+  { from: "Docker", to: "Cloudflare" },
+  { from: "CI/CD", to: "Netlify" },
+  { from: "Cloudflare", to: "Netlify" },
+  { from: "Vercel", to: "Serverless" },
+  { from: "CI/CD", to: "Serverless" },
 ];
 
 // Generate connections from explicit definitions
