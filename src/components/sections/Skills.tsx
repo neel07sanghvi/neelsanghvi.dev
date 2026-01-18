@@ -75,9 +75,10 @@ const explicitConnections = [
   { from: 'TypeScript', to: 'JavaScript' },
   { from: 'TypeScript', to: 'Python' },
   { from: 'TypeScript', to: 'Golang' },
+  { from: 'TypeScript', to: 'C' },
   { from: 'JavaScript', to: 'C++' },
-  { from: 'Python', to: 'C' },
   { from: 'JavaScript', to: 'SQL' },
+  { from: 'Python', to: 'SQL' },
 
   // Frontend cluster - branching from React/Next.js
   { from: 'React', to: 'Next.js' },
@@ -88,12 +89,14 @@ const explicitConnections = [
   { from: 'Next.js', to: 'TailwindCSS' },
   { from: 'Recoil', to: 'MUI' },
   { from: 'Zustand', to: 'Shadcn' },
+  { from: 'TailwindCSS', to: 'Shadcn' },
 
   // Backend cluster - branching from Node.js
   { from: 'Node.js', to: 'NestJS' },
   { from: 'Node.js', to: 'Express' },
   { from: 'NestJS', to: 'WebSocket' },
   { from: 'Express', to: 'WebRTC' },
+  { from: 'WebSocket', to: 'WebRTC' },
 
   // Database cluster - branching from PostgreSQL
   { from: 'PostgreSQL', to: 'MongoDB' },
@@ -101,13 +104,15 @@ const explicitConnections = [
   { from: 'MongoDB', to: 'Prisma ORM' },
   { from: 'Firebase', to: 'MySQL' },
   { from: 'Prisma ORM', to: 'Supabase' },
+  { from: 'MySQL', to: 'Supabase' },
 
   // DevOps cluster - branching from AWS
   { from: 'AWS', to: 'Docker' },
   { from: 'AWS', to: 'Vercel' },
-  { from: 'Docker', to: 'CI/CD' },
+  { from: 'AWS', to: 'CI/CD' },
   { from: 'Docker', to: 'Cloudflare' },
   { from: 'CI/CD', to: 'Netlify' },
+  { from: 'Cloudflare', to: 'Netlify' },
 
   // Tools cluster - branching from LLMs
   { from: 'LLMs', to: 'LangChain' },
@@ -115,6 +120,7 @@ const explicitConnections = [
   { from: 'LLMs', to: 'Serverless' },
   { from: 'LangChain', to: 'Redis' },
   { from: 'Redis', to: 'GraphQL' },
+  { from: 'Serverless', to: 'Redis' },
 ];
 
 // Generate connections from explicit definitions
