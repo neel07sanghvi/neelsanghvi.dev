@@ -68,20 +68,6 @@ const SkillNode = ({ name, color, size = 'md', x, y, delay = 0 }: SkillNodeProps
           transition={{ duration: 0.3 }}
         />
 
-        {/* Twinkle animation */}
-        <motion.div
-          className={`absolute rounded-full -translate-x-1/2 -translate-y-1/2 ${sizeClasses[size]}`}
-          style={{ backgroundColor: 'white' }}
-          animate={{
-            opacity: [0, 0.8, 0],
-            scale: [0.5, 1.2, 0.5],
-          }}
-          transition={{
-            duration: 3 + Math.random() * 2,
-            repeat: Infinity,
-            delay: Math.random() * 2,
-          }}
-        />
       </motion.div>
 
       {/* Permanent label below the node */}
