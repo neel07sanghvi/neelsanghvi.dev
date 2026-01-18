@@ -18,7 +18,7 @@ const skillsData = [
 
   // Frontend cluster (left side)
   { name: "React", category: "Frontend", x: 10, y: 30, size: "lg" as const },
-  { name: "Next.js", category: "Frontend", x: 10, y: 30, size: "lg" as const },
+  { name: "Next.js", category: "Frontend", x: 20, y: 30, size: "lg" as const },
   { name: "React Native", category: "Frontend", x: 12, y: 48, size: "md" as const },
   { name: "Redux", category: "Frontend", x: 24, y: 46, size: "md" as const },
   { name: "Recoil", category: "Frontend", x: 8, y: 56, size: "sm" as const },
