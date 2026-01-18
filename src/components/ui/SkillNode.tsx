@@ -82,19 +82,6 @@ const SkillNode = ({ name, color, size = 'md', x, y, delay = 0 }: SkillNodeProps
           {name}
         </span>
       </motion.div>
-
-      {/* Permanent label below the node */}
-      <motion.span
-        className="mt-4 text-[10px] font-medium whitespace-nowrap pointer-events-none"
-        style={{ color: color }}
-        animate={{
-          opacity: isHovered ? 1 : 0.7,
-          scale: isHovered ? 1.1 : 1,
-        }}
-        transition={{ duration: 0.3 }}
-      >
-        {name}
-      </motion.span>
     </motion.div>
   );
 };
