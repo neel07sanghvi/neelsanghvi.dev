@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
 
 interface SkillNodeProps {
   name: string;
@@ -9,6 +8,10 @@ interface SkillNodeProps {
   x: number;
   y: number;
   delay?: number;
+  isHovered?: boolean;
+  isConnected?: boolean;
+  onHover?: () => void;
+  onLeave?: () => void;
 }
 
 const sizeClasses = {
@@ -23,8 +26,20 @@ const glowSizes = {
   lg: "w-8 h-8",
 };
 
-const SkillNode = ({ name, color, size = "md", x, y, delay = 0 }: SkillNodeProps) => {
-  const [isHovered, setIsHovered] = useState(false);
+const SkillNode = ({
+  name,
+  color,
+  size = "md",
+  x,
+  y,
+  delay = 0,
+  isHovered = false,
+  isConnected = false,
+  onHover,
+  onLeave,
+}: SkillNodeProps) => {
+  const scale = isHovered ? 1.4 : isConnected ? 1.2 : 1;
+  const glowOpacity = isHovered ? 0.9 : isConnected ? 0.6 : 0.4;
 
   return (
     <motion.div
@@ -32,25 +47,22 @@ const SkillNode = ({ name, color, size = "md", x, y, delay = 0 }: SkillNodeProps
       style={{
         left: `${x}%`,
         top: `${y}%`,
-        zIndex: 10, // Ensures nodes render ABOVE connection lines
+        zIndex: isHovered ? 20 : 10,
       }}
       initial={{ opacity: 0, scale: 0 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
     >
-      {/* Node container - dot is centered at coordinate, label hangs below */}
       <motion.div
         className="relative flex flex-col items-center"
-        style={{ transform: "translate(-50%, -50%)" }} // Center the dot exactly at x,y
-        animate={{
-          scale: isHovered ? 1.3 : 1,
-        }}
+        style={{ transform: "translate(-50%, -50%)" }}
+        animate={{ scale }}
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
       >
-        {/* Outer glow - centered on the dot */}
+        {/* Outer glow */}
         <motion.div
           className={`absolute rounded-full blur-md ${glowSizes[size]}`}
           style={{
@@ -59,27 +71,39 @@ const SkillNode = ({ name, color, size = "md", x, y, delay = 0 }: SkillNodeProps
             left: "50%",
             transform: "translate(-50%, -50%)",
           }}
-          animate={{
-            opacity: isHovered ? 0.9 : 0.4,
-          }}
+          animate={{ opacity: glowOpacity }}
           transition={{ duration: 0.3 }}
         />
 
-        {/* Core star - this is positioned at the exact coordinate */}
+        {/* Core star */}
         <div
           className={`rounded-full ${sizeClasses[size]}`}
           style={{
             backgroundColor: color,
-            boxShadow: isHovered ? `0 0 20px ${color}, 0 0 40px ${color}` : `0 0 10px ${color}`,
+            boxShadow: isHovered
+              ? `0 0 20px ${color}, 0 0 40px ${color}`
+              : isConnected
+                ? `0 0 15px ${color}`
+                : `0 0 10px ${color}`,
           }}
         />
 
-        {/* Permanent label below the node */}
+        {/* Inner bright core */}
+        <div
+          className="absolute w-1 h-1 rounded-full bg-white/80"
+          style={{
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        />
+
+        {/* Label */}
         <span
           className="mt-2 text-[10px] font-medium whitespace-nowrap pointer-events-none"
           style={{
             color: color,
-            opacity: isHovered ? 1 : 0.7,
+            opacity: isHovered ? 1 : isConnected ? 0.9 : 0.7,
             textShadow: "0 1px 4px rgba(0,0,0,0.8)",
           }}
         >
