@@ -39,7 +39,7 @@ const skillsData = [
   { name: "LangChain", category: "Backend", x: 72, y: 64, size: "sm" as const },
 
   // Database cluster (center-bottom)
-  { name: "PostgreSQL", category: "Database", x: 48, y: 50, size: "lg" as const },
+  { name: "PostgreSQL", category: "Database", x: 42, y: 50, size: "lg" as const },
   { name: "MongoDB", category: "Database", x: 56, y: 46, size: "md" as const },
   { name: "Firebase", category: "Database", x: 40, y: 60, size: "md" as const },
   { name: "Prisma ORM", category: "Database", x: 58, y: 58, size: "sm" as const },
