@@ -86,10 +86,7 @@ const Experience = () => {
         <TimelinePath>
           {experiences.map((exp, index) => (
             <TimelineNode key={index} index={index}>
-              <ExperienceCard
-                {...exp}
-                align={index % 2 === 0 ? 'left' : 'right'}
-              />
+              <ExperienceCard {...exp} />
             </TimelineNode>
           ))}
         </TimelinePath>
