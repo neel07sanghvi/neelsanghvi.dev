@@ -27,16 +27,16 @@ const skillsData = [
   { name: "MUI", category: "Frontend", x: 10, y: 66, size: "sm" as const },
   { name: "Shadcn", category: "Frontend", x: 22, y: 68, size: "sm" as const },
 
-  // Backend cluster (right side)
-  { name: "Node.js", category: "Backend", x: 78, y: 36, size: "lg" as const },
-  { name: "NestJS", category: "Backend", x: 86, y: 44, size: "md" as const },
-  { name: "Express", category: "Backend", x: 72, y: 48, size: "md" as const },
-  { name: "WebSocket", category: "Backend", x: 90, y: 54, size: "sm" as const },
-  { name: "WebRTC", category: "Backend", x: 82, y: 58, size: "sm" as const },
-  { name: "GraphQL", category: "Backend", x: 76, y: 64, size: "sm" as const },
-  { name: "Kafka", category: "Backend", x: 88, y: 66, size: "sm" as const },
-  { name: "LLMs", category: "Backend", x: 80, y: 70, size: "md" as const },
-  { name: "LangChain", category: "Backend", x: 72, y: 74, size: "sm" as const },
+  // Backend cluster (right side - moved up)
+  { name: "Node.js", category: "Backend", x: 78, y: 28, size: "lg" as const },
+  { name: "NestJS", category: "Backend", x: 86, y: 36, size: "md" as const },
+  { name: "Express", category: "Backend", x: 72, y: 40, size: "md" as const },
+  { name: "WebSocket", category: "Backend", x: 90, y: 44, size: "sm" as const },
+  { name: "WebRTC", category: "Backend", x: 82, y: 48, size: "sm" as const },
+  { name: "GraphQL", category: "Backend", x: 76, y: 54, size: "sm" as const },
+  { name: "Kafka", category: "Backend", x: 88, y: 56, size: "sm" as const },
+  { name: "LLMs", category: "Backend", x: 80, y: 60, size: "md" as const },
+  { name: "LangChain", category: "Backend", x: 72, y: 64, size: "sm" as const },
 
   // Database cluster (center-bottom)
   { name: "PostgreSQL", category: "Database", x: 48, y: 52, size: "lg" as const },
