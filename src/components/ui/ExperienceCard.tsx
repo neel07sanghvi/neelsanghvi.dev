@@ -74,7 +74,7 @@ const ExperienceCard = ({
               transition={{ delay: 0.4 + i * 0.1 }}
               className="text-sm text-muted-foreground leading-relaxed flex items-start gap-2"
             >
-              <span className="text-experience-accent mt-1.5 flex-shrink-0">•</span>
+              <span className="text-experience-accent flex-shrink-0 leading-relaxed">•</span>
               <span>{highlight}</span>
             </motion.li>
           ))}
