@@ -17,8 +17,8 @@ const skillsData = [
   { name: "SQL", category: "Languages", x: 44, y: 22, size: "sm" as const },
 
   // Frontend cluster (left side)
-  { name: "React", category: "Frontend", x: 18, y: 38, size: "lg" as const },
-  { name: "Next.js", category: "Frontend", x: 28, y: 32, size: "lg" as const },
+  { name: "React", category: "Frontend", x: 10, y: 30, size: "lg" as const },
+  { name: "Next.js", category: "Frontend", x: 10, y: 30, size: "lg" as const },
   { name: "React Native", category: "Frontend", x: 12, y: 48, size: "md" as const },
   { name: "Redux", category: "Frontend", x: 24, y: 46, size: "md" as const },
   { name: "Recoil", category: "Frontend", x: 8, y: 56, size: "sm" as const },
@@ -69,17 +69,18 @@ const categoryColors: Record<string, string> = {
   Tools: "hsl(45, 93%, 58%)", // gold
 };
 
-// Each cluster is a separate constellation - NO cross-cluster connections
+// Define explicit connections for each cluster (matching the reference design)
 const explicitConnections = [
   // Languages cluster - star pattern from TypeScript
   { from: "TypeScript", to: "JavaScript" },
   { from: "TypeScript", to: "Python" },
   { from: "TypeScript", to: "Golang" },
-  { from: "Golang", to: "C" },
+  { from: "TypeScript", to: "C" },
   { from: "JavaScript", to: "C++" },
   { from: "JavaScript", to: "SQL" },
+  { from: "Python", to: "SQL" },
 
-  // Frontend cluster - tree from React/Next.js
+  // Frontend cluster - branching from React/Next.js
   { from: "React", to: "Next.js" },
   { from: "React", to: "React Native" },
   { from: "React", to: "Redux" },
@@ -90,14 +91,14 @@ const explicitConnections = [
   { from: "Zustand", to: "Shadcn" },
   { from: "TailwindCSS", to: "Shadcn" },
 
-  // Backend cluster - from Node.js
+  // Backend cluster - branching from Node.js
   { from: "Node.js", to: "NestJS" },
   { from: "Node.js", to: "Express" },
   { from: "NestJS", to: "WebSocket" },
   { from: "Express", to: "WebRTC" },
   { from: "WebSocket", to: "WebRTC" },
 
-  // Database cluster - from PostgreSQL
+  // Database cluster - branching from PostgreSQL
   { from: "PostgreSQL", to: "MongoDB" },
   { from: "PostgreSQL", to: "Firebase" },
   { from: "MongoDB", to: "Prisma ORM" },
@@ -105,7 +106,7 @@ const explicitConnections = [
   { from: "Prisma ORM", to: "Supabase" },
   { from: "MySQL", to: "Supabase" },
 
-  // DevOps cluster - from AWS
+  // DevOps cluster - branching from AWS
   { from: "AWS", to: "Docker" },
   { from: "AWS", to: "Vercel" },
   { from: "AWS", to: "CI/CD" },
@@ -113,7 +114,7 @@ const explicitConnections = [
   { from: "CI/CD", to: "Netlify" },
   { from: "Cloudflare", to: "Netlify" },
 
-  // Tools cluster - from LLMs
+  // Tools cluster - branching from LLMs
   { from: "LLMs", to: "LangChain" },
   { from: "LLMs", to: "Kafka" },
   { from: "LLMs", to: "Serverless" },
