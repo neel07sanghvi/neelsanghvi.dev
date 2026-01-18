@@ -3,6 +3,7 @@ import Hero from '@/components/sections/Hero';
 import About from '@/components/sections/About';
 import Experience from '@/components/sections/Experience';
 import Skills from '@/components/sections/Skills';
+import Projects from '@/components/sections/Projects';
 
 const Index = () => {
   return (
@@ -15,10 +16,7 @@ const Index = () => {
         <About />
         <Experience />
         <Skills />
-        
-        <section id="projects" className="min-h-screen bg-projects flex items-center justify-center">
-          <p className="text-muted-foreground text-lg">Projects Section</p>
-        </section>
+        <Projects />
         
         <section id="contact" className="min-h-screen bg-contact flex items-center justify-center">
           <p className="text-muted-foreground text-lg">Contact Section</p>
