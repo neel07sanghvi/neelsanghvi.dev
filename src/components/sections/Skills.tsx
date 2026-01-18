@@ -60,121 +60,85 @@ const skillsData = [
 
 // Category colors
 const categoryColors: Record<string, string> = {
-  Languages: "hsl(263, 70%, 71%)", // purple
-  Frontend: "hsl(217, 92%, 69%)", // blue
-  Backend: "hsl(160, 84%, 52%)", // green
-  Database: "hsl(330, 71%, 66%)", // pink
-  DevOps: "hsl(27, 96%, 61%)", // orange
-  Tools: "hsl(45, 93%, 58%)", // gold
+  Languages: "hsl(263, 70%, 71%)",
+  Frontend: "hsl(217, 92%, 69%)",
+  Backend: "hsl(160, 84%, 52%)",
+  Database: "hsl(330, 71%, 66%)",
+  DevOps: "hsl(27, 96%, 61%)",
+  Tools: "hsl(45, 93%, 58%)",
 };
 
-// FIXED: Complete connections ensuring every node is connected
+// COMPLETE connections - every node has at least one connection
 const explicitConnections = [
-  // Languages cluster - ensuring all 7 nodes connected
+  // ========== LANGUAGES CLUSTER (7 nodes) ==========
+  // Central hub: TypeScript
+  { from: "TypeScript", to: "Golang" }, // Golang connected!
   { from: "TypeScript", to: "JavaScript" },
   { from: "TypeScript", to: "Python" },
-  { from: "TypeScript", to: "Golang" },
-  { from: "Python", to: "C" },
-  { from: "JavaScript", to: "C++" },
-  { from: "JavaScript", to: "SQL" },
+  { from: "JavaScript", to: "C++" }, // C++ connected via JavaScript
+  { from: "JavaScript", to: "SQL" }, // SQL connected via JavaScript
+  { from: "Python", to: "C" }, // C connected via Python
+  { from: "C++", to: "Golang" }, // Extra: C++ to Golang for better shape
 
-  // Frontend cluster - ensuring all 9 nodes connected
-  { from: "React", to: "Next.js" },
+  // ========== FRONTEND CLUSTER (9 nodes) ==========
+  // Central hub: React
+  { from: "React", to: "Next.js" }, // Next.js connected!
   { from: "React", to: "React Native" },
   { from: "React", to: "Redux" },
+  { from: "Next.js", to: "Redux" }, // Extra: Next.js to Redux for triangle
+  { from: "Next.js", to: "TailwindCSS" }, // Extra: Next.js to TailwindCSS
   { from: "React Native", to: "Recoil" },
   { from: "Redux", to: "Zustand" },
   { from: "Redux", to: "TailwindCSS" },
   { from: "Recoil", to: "MUI" },
+  { from: "Recoil", to: "Zustand" }, // Extra: connect Recoil-Zustand
   { from: "Zustand", to: "Shadcn" },
+  { from: "TailwindCSS", to: "Shadcn" },
   { from: "MUI", to: "Shadcn" },
 
-  // Backend cluster - ensuring all 5 nodes connected
+  // ========== BACKEND CLUSTER (5 nodes) ==========
+  // Central hub: Node.js
   { from: "Node.js", to: "NestJS" },
   { from: "Node.js", to: "Express" },
   { from: "NestJS", to: "WebSocket" },
+  { from: "NestJS", to: "WebRTC" }, // Extra: NestJS to WebRTC
   { from: "Express", to: "WebRTC" },
   { from: "WebSocket", to: "WebRTC" },
 
-  // Database cluster - ensuring all 6 nodes connected
+  // ========== DATABASE CLUSTER (6 nodes) ==========
+  // Central hub: PostgreSQL
   { from: "PostgreSQL", to: "MongoDB" },
   { from: "PostgreSQL", to: "Firebase" },
+  { from: "PostgreSQL", to: "Prisma ORM" }, // Extra: direct connection
   { from: "MongoDB", to: "Prisma ORM" },
   { from: "Firebase", to: "MySQL" },
   { from: "Prisma ORM", to: "Supabase" },
   { from: "MySQL", to: "Supabase" },
+  { from: "Firebase", to: "Supabase" }, // Extra: Firebase to Supabase
 
-  // DevOps cluster - ensuring all 6 nodes connected
+  // ========== DEVOPS CLUSTER (6 nodes) ==========
+  // Central hub: AWS
   { from: "AWS", to: "Docker" },
-  { from: "AWS", to: "Vercel" },
   { from: "AWS", to: "CI/CD" },
+  { from: "AWS", to: "Vercel" }, // Vercel connected to AWS!
+  { from: "NestJS", to: "Vercel" }, // Extra cross-cluster: NestJS deploys to Vercel
   { from: "Docker", to: "Cloudflare" },
+  { from: "Docker", to: "CI/CD" }, // Extra: Docker to CI/CD
   { from: "CI/CD", to: "Netlify" },
+  { from: "CI/CD", to: "Vercel" }, // Extra: CI/CD to Vercel
   { from: "Cloudflare", to: "Netlify" },
 
-  // Tools cluster - ensuring all 6 nodes connected
+  // ========== TOOLS CLUSTER (6 nodes) ==========
+  // Central hub: LLMs
   { from: "LLMs", to: "LangChain" },
   { from: "LLMs", to: "Kafka" },
   { from: "LLMs", to: "Serverless" },
+  { from: "LLMs", to: "Redis" }, // Extra: LLMs to Redis
   { from: "LangChain", to: "GraphQL" },
+  { from: "Kafka", to: "LangChain" }, // Extra: Kafka to LangChain
   { from: "Serverless", to: "Redis" },
   { from: "Redis", to: "GraphQL" },
 ];
-
-// Inline ConstellationLines component to fix z-index and rendering
-const ConstellationLines = ({
-  connections,
-  activeCategory,
-}: {
-  connections: { from: { x: number; y: number }; to: { x: number; y: number }; color: string; category: string }[];
-  activeCategory: string | null;
-}) => {
-  return (
-    <svg
-      className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{ zIndex: 1 }} // Lines behind nodes
-      preserveAspectRatio="none"
-    >
-      <defs>
-        {/* Glow filter for lines */}
-        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-          <feMerge>
-            <feMergeNode in="coloredBlur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
-
-      {connections.map((conn, index) => {
-        const isActive = !activeCategory || conn.category === activeCategory;
-        const opacity = isActive ? 0.6 : 0.1;
-
-        return (
-          <motion.line
-            key={`${conn.from.x}-${conn.from.y}-${conn.to.x}-${conn.to.y}-${index}`}
-            x1={`${conn.from.x}%`}
-            y1={`${conn.from.y}%`}
-            x2={`${conn.to.x}%`}
-            y2={`${conn.to.y}%`}
-            stroke={conn.color}
-            strokeWidth={isActive ? 1.5 : 1}
-            strokeOpacity={opacity}
-            strokeLinecap="round"
-            filter={isActive ? "url(#glow)" : undefined}
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: opacity }}
-            transition={{
-              duration: 1.5,
-              delay: index * 0.02,
-              ease: "easeOut",
-            }}
-          />
-        );
-      })}
-    </svg>
-  );
-};
 
 // Generate connections with category info
 const generateConnections = () => {
@@ -200,6 +164,60 @@ const generateConnections = () => {
   });
 
   return connections;
+};
+
+// Inline ConstellationLines component
+const ConstellationLines = ({
+  connections,
+  activeCategory,
+}: {
+  connections: { from: { x: number; y: number }; to: { x: number; y: number }; color: string; category: string }[];
+  activeCategory: string | null;
+}) => {
+  return (
+    <svg
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      style={{ zIndex: 1 }}
+      preserveAspectRatio="none"
+    >
+      <defs>
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+          <feMerge>
+            <feMergeNode in="coloredBlur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+
+      {connections.map((conn, index) => {
+        const isActive = !activeCategory || conn.category === activeCategory;
+        const opacity = isActive ? 0.6 : 0.1;
+
+        return (
+          <motion.line
+            key={`line-${index}-${conn.from.x}-${conn.from.y}-${conn.to.x}-${conn.to.y}`}
+            x1={`${conn.from.x}%`}
+            y1={`${conn.from.y}%`}
+            x2={`${conn.to.x}%`}
+            y2={`${conn.to.y}%`}
+            stroke={conn.color}
+            strokeWidth={isActive ? 1.5 : 1}
+            strokeOpacity={opacity}
+            strokeLinecap="round"
+            filter={isActive ? "url(#glow)" : undefined}
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: opacity }}
+            transition={{
+              duration: 1.5,
+              delay: index * 0.02,
+              ease: "easeOut",
+            }}
+          />
+        );
+      })}
+    </svg>
+  );
 };
 
 const Skills = () => {
