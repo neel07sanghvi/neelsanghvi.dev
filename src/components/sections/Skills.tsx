@@ -4,9 +4,9 @@ import TextReveal from "@/components/ui/TextReveal";
 import SkillNode from "@/components/ui/SkillNode";
 import SkillLegend from "@/components/ui/SkillLegend";
 
-// Skill data with cleaner clustered positions
+// Skill data with positions
 const skillsData = [
-  // Languages cluster (top-center)
+  // Languages cluster (top-center) - 7 nodes
   { name: "TypeScript", category: "Languages", x: 48, y: 12, size: "lg" as const },
   { name: "JavaScript", category: "Languages", x: 38, y: 18, size: "md" as const },
   { name: "Python", category: "Languages", x: 58, y: 18, size: "md" as const },
@@ -15,7 +15,7 @@ const skillsData = [
   { name: "Golang", category: "Languages", x: 52, y: 6, size: "sm" as const },
   { name: "SQL", category: "Languages", x: 44, y: 22, size: "sm" as const },
 
-  // Frontend cluster (left side)
+  // Frontend cluster (left side) - 9 nodes
   { name: "React", category: "Frontend", x: 18, y: 38, size: "lg" as const },
   { name: "Next.js", category: "Frontend", x: 28, y: 32, size: "lg" as const },
   { name: "React Native", category: "Frontend", x: 12, y: 48, size: "md" as const },
@@ -26,14 +26,14 @@ const skillsData = [
   { name: "MUI", category: "Frontend", x: 10, y: 66, size: "sm" as const },
   { name: "Shadcn", category: "Frontend", x: 22, y: 68, size: "sm" as const },
 
-  // Backend cluster (right side)
+  // Backend cluster (right side) - 5 nodes
   { name: "Node.js", category: "Backend", x: 78, y: 36, size: "lg" as const },
   { name: "NestJS", category: "Backend", x: 86, y: 44, size: "md" as const },
   { name: "Express", category: "Backend", x: 72, y: 48, size: "md" as const },
   { name: "WebSocket", category: "Backend", x: 90, y: 54, size: "sm" as const },
   { name: "WebRTC", category: "Backend", x: 82, y: 58, size: "sm" as const },
 
-  // Database cluster (center-bottom)
+  // Database cluster (center-bottom) - 6 nodes
   { name: "PostgreSQL", category: "Database", x: 48, y: 52, size: "lg" as const },
   { name: "MongoDB", category: "Database", x: 56, y: 46, size: "md" as const },
   { name: "Firebase", category: "Database", x: 40, y: 60, size: "md" as const },
@@ -41,7 +41,7 @@ const skillsData = [
   { name: "MySQL", category: "Database", x: 44, y: 68, size: "sm" as const },
   { name: "Supabase", category: "Database", x: 54, y: 66, size: "md" as const },
 
-  // DevOps cluster (bottom-right)
+  // DevOps cluster (bottom-right) - 6 nodes
   { name: "AWS", category: "DevOps", x: 76, y: 72, size: "lg" as const },
   { name: "Docker", category: "DevOps", x: 68, y: 78, size: "md" as const },
   { name: "CI/CD", category: "DevOps", x: 84, y: 80, size: "sm" as const },
@@ -49,7 +49,7 @@ const skillsData = [
   { name: "Vercel", category: "DevOps", x: 88, y: 68, size: "sm" as const },
   { name: "Netlify", category: "DevOps", x: 80, y: 88, size: "sm" as const },
 
-  // Tools cluster (bottom-left)
+  // Tools cluster (bottom-left) - 6 nodes
   { name: "LLMs", category: "Tools", x: 22, y: 80, size: "md" as const },
   { name: "LangChain", category: "Tools", x: 14, y: 86, size: "sm" as const },
   { name: "Redis", category: "Tools", x: 30, y: 88, size: "sm" as const },
@@ -68,80 +68,110 @@ const categoryColors: Record<string, string> = {
   Tools: "hsl(45, 93%, 58%)",
 };
 
-// COMPLETE connections - every node has at least one connection
+/*
+ * VERIFIED CONNECTIONS - Each node checked individually
+ *
+ * LANGUAGES (7): TypeScript, JavaScript, Python, C++, C, Golang, SQL
+ * FRONTEND (9): React, Next.js, React Native, Redux, Recoil, Zustand, TailwindCSS, MUI, Shadcn
+ * BACKEND (5): Node.js, NestJS, Express, WebSocket, WebRTC
+ * DATABASE (6): PostgreSQL, MongoDB, Firebase, Prisma ORM, MySQL, Supabase
+ * DEVOPS (6): AWS, Docker, CI/CD, Cloudflare, Vercel, Netlify
+ * TOOLS (6): LLMs, LangChain, Redis, Kafka, Serverless, GraphQL
+ */
+
 const explicitConnections = [
-  // ========== LANGUAGES CLUSTER (7 nodes) ==========
-  // Central hub: TypeScript
-  { from: "TypeScript", to: "Golang" }, // Golang connected!
+  // ===== LANGUAGES (7 nodes) =====
+  // TypeScript is the hub
+  { from: "TypeScript", to: "Golang" },
   { from: "TypeScript", to: "JavaScript" },
   { from: "TypeScript", to: "Python" },
-  { from: "JavaScript", to: "C++" }, // C++ connected via JavaScript
-  { from: "JavaScript", to: "SQL" }, // SQL connected via JavaScript
-  { from: "Python", to: "C" }, // C connected via Python
-  { from: "C++", to: "Golang" }, // Extra: C++ to Golang for better shape
+  { from: "TypeScript", to: "C" }, // C connected directly to TypeScript
+  { from: "JavaScript", to: "C++" },
+  { from: "JavaScript", to: "SQL" },
+  { from: "Golang", to: "C++" }, // Connect top nodes
 
-  // ========== FRONTEND CLUSTER (9 nodes) ==========
-  // Central hub: React
-  { from: "React", to: "Next.js" }, // Next.js connected!
+  // ===== FRONTEND (9 nodes) =====
+  // React is the hub
+  { from: "React", to: "Next.js" },
   { from: "React", to: "React Native" },
   { from: "React", to: "Redux" },
-  { from: "Next.js", to: "Redux" }, // Extra: Next.js to Redux for triangle
-  { from: "Next.js", to: "TailwindCSS" }, // Extra: Next.js to TailwindCSS
   { from: "React Native", to: "Recoil" },
   { from: "Redux", to: "Zustand" },
-  { from: "Redux", to: "TailwindCSS" },
+  { from: "Redux", to: "TailwindCSS" }, // TailwindCSS connected to Redux
+  { from: "Zustand", to: "TailwindCSS" }, // TailwindCSS also connected to Zustand
+  { from: "Recoil", to: "Zustand" },
   { from: "Recoil", to: "MUI" },
-  { from: "Recoil", to: "Zustand" }, // Extra: connect Recoil-Zustand
   { from: "Zustand", to: "Shadcn" },
-  { from: "TailwindCSS", to: "Shadcn" },
   { from: "MUI", to: "Shadcn" },
+  { from: "TailwindCSS", to: "Shadcn" }, // TailwindCSS to Shadcn
 
-  // ========== BACKEND CLUSTER (5 nodes) ==========
-  // Central hub: Node.js
+  // ===== BACKEND (5 nodes) =====
+  // Node.js is the hub
   { from: "Node.js", to: "NestJS" },
   { from: "Node.js", to: "Express" },
   { from: "NestJS", to: "WebSocket" },
-  { from: "NestJS", to: "WebRTC" }, // Extra: NestJS to WebRTC
+  { from: "NestJS", to: "WebRTC" },
   { from: "Express", to: "WebRTC" },
   { from: "WebSocket", to: "WebRTC" },
 
-  // ========== DATABASE CLUSTER (6 nodes) ==========
-  // Central hub: PostgreSQL
+  // ===== DATABASE (6 nodes) =====
+  // PostgreSQL is the hub
   { from: "PostgreSQL", to: "MongoDB" },
   { from: "PostgreSQL", to: "Firebase" },
-  { from: "PostgreSQL", to: "Prisma ORM" }, // Extra: direct connection
+  { from: "PostgreSQL", to: "Prisma ORM" },
   { from: "MongoDB", to: "Prisma ORM" },
   { from: "Firebase", to: "MySQL" },
+  { from: "Firebase", to: "Supabase" },
   { from: "Prisma ORM", to: "Supabase" },
   { from: "MySQL", to: "Supabase" },
-  { from: "Firebase", to: "Supabase" }, // Extra: Firebase to Supabase
 
-  // ========== DEVOPS CLUSTER (6 nodes) ==========
-  // Central hub: AWS
+  // ===== DEVOPS (6 nodes) =====
+  // AWS is the hub
   { from: "AWS", to: "Docker" },
   { from: "AWS", to: "CI/CD" },
-  { from: "AWS", to: "Vercel" }, // Vercel connected to AWS!
-  { from: "NestJS", to: "Vercel" }, // Extra cross-cluster: NestJS deploys to Vercel
+  { from: "AWS", to: "Vercel" }, // Vercel connected to AWS
   { from: "Docker", to: "Cloudflare" },
-  { from: "Docker", to: "CI/CD" }, // Extra: Docker to CI/CD
+  { from: "Docker", to: "CI/CD" },
+  { from: "CI/CD", to: "Vercel" }, // Vercel also connected to CI/CD
   { from: "CI/CD", to: "Netlify" },
-  { from: "CI/CD", to: "Vercel" }, // Extra: CI/CD to Vercel
   { from: "Cloudflare", to: "Netlify" },
+  { from: "Vercel", to: "WebRTC" }, // Cross-cluster: Vercel to WebRTC (closest node)
 
-  // ========== TOOLS CLUSTER (6 nodes) ==========
-  // Central hub: LLMs
+  // ===== TOOLS (6 nodes) =====
+  // LLMs is the hub
   { from: "LLMs", to: "LangChain" },
   { from: "LLMs", to: "Kafka" },
   { from: "LLMs", to: "Serverless" },
-  { from: "LLMs", to: "Redis" }, // Extra: LLMs to Redis
+  { from: "LLMs", to: "Redis" },
   { from: "LangChain", to: "GraphQL" },
-  { from: "Kafka", to: "LangChain" }, // Extra: Kafka to LangChain
+  { from: "Kafka", to: "LangChain" },
   { from: "Serverless", to: "Redis" },
   { from: "Redis", to: "GraphQL" },
 ];
 
+// Validation: Check all nodes have at least one connection
+const validateConnections = () => {
+  const connectedNodes = new Set<string>();
+  explicitConnections.forEach((conn) => {
+    connectedNodes.add(conn.from);
+    connectedNodes.add(conn.to);
+  });
+
+  const allNodeNames = skillsData.map((s) => s.name);
+  const disconnected = allNodeNames.filter((name) => !connectedNodes.has(name));
+
+  if (disconnected.length > 0) {
+    console.warn("Disconnected nodes:", disconnected);
+  }
+
+  return disconnected;
+};
+
 // Generate connections with category info
 const generateConnections = () => {
+  // Run validation in development
+  validateConnections();
+
   const connections: {
     from: { x: number; y: number };
     to: { x: number; y: number };
@@ -160,13 +190,17 @@ const generateConnections = () => {
         color: categoryColors[fromSkill.category],
         category: fromSkill.category,
       });
+    } else {
+      // Log missing connections for debugging
+      if (!fromSkill) console.warn(`Missing node: ${conn.from}`);
+      if (!toSkill) console.warn(`Missing node: ${conn.to}`);
     }
   });
 
   return connections;
 };
 
-// Inline ConstellationLines component
+// ConstellationLines component
 const ConstellationLines = ({
   connections,
   activeCategory,
@@ -196,7 +230,7 @@ const ConstellationLines = ({
 
         return (
           <motion.line
-            key={`line-${index}-${conn.from.x}-${conn.from.y}-${conn.to.x}-${conn.to.y}`}
+            key={`line-${index}`}
             x1={`${conn.from.x}%`}
             y1={`${conn.from.y}%`}
             x2={`${conn.to.x}%`}
@@ -301,10 +335,10 @@ const Skills = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          {/* Connection lines - rendered FIRST (behind nodes) */}
+          {/* Connection lines */}
           <ConstellationLines connections={filteredConnections} activeCategory={activeCategory} />
 
-          {/* Skill nodes - rendered SECOND (in front of lines) */}
+          {/* Skill nodes */}
           {filteredSkills.map((skill, index) => (
             <SkillNode
               key={skill.name}
