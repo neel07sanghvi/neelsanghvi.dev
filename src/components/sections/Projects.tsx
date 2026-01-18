@@ -14,7 +14,7 @@ const projects: Project[] = [
       "Attracted 100+ users within the first week of launch"
     ],
     githubUrl: "https://github.com/neel07sanghvi/Roast-My-Github",
-    liveUrl: undefined // Add live URL when available
+    liveUrl: "https://roast-my-github-pi.vercel.app/"
   },
   {
     title: "Time Tracker",
