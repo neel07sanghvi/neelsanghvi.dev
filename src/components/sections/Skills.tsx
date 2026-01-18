@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import TextReveal from '@/components/ui/TextReveal';
 import SkillNode from '@/components/ui/SkillNode';
-import ConstellationLines from '@/components/ui/ConstellationLines';
 
 // Scattered skill positions across the space
 const skillsData = [
@@ -80,60 +79,6 @@ const legendItems = [
   { name: 'Other', color: categoryColors.Other },
 ];
 
-// Constellation connections - zigzag paths connecting related skills
-const constellationConnections = [
-  // Language cluster connections
-  { from: { x: 42, y: 14 }, to: { x: 48, y: 8 }, color: categoryColors.Language },
-  { from: { x: 48, y: 8 }, to: { x: 58, y: 12 }, color: categoryColors.Language },
-  { from: { x: 42, y: 14 }, to: { x: 50, y: 24 }, color: categoryColors.Language },
-  { from: { x: 35, y: 10 }, to: { x: 42, y: 14 }, color: categoryColors.Language },
-  { from: { x: 58, y: 12 }, to: { x: 62, y: 6 }, color: categoryColors.Language },
-  { from: { x: 28, y: 8 }, to: { x: 35, y: 10 }, color: categoryColors.Language },
-  
-  // Frontend cluster connections
-  { from: { x: 14, y: 32 }, to: { x: 22, y: 20 }, color: categoryColors.Frontend },
-  { from: { x: 14, y: 32 }, to: { x: 26, y: 38 }, color: categoryColors.Frontend },
-  { from: { x: 14, y: 32 }, to: { x: 6, y: 44 }, color: categoryColors.Frontend },
-  { from: { x: 6, y: 44 }, to: { x: 8, y: 58 }, color: categoryColors.Frontend },
-  { from: { x: 8, y: 58 }, to: { x: 16, y: 52 }, color: categoryColors.Frontend },
-  { from: { x: 16, y: 52 }, to: { x: 28, y: 50 }, color: categoryColors.Frontend },
-  { from: { x: 8, y: 58 }, to: { x: 10, y: 68 }, color: categoryColors.Frontend },
-  { from: { x: 10, y: 68 }, to: { x: 20, y: 62 }, color: categoryColors.Frontend },
-  
-  // Backend cluster connections
-  { from: { x: 72, y: 32 }, to: { x: 82, y: 18 }, color: categoryColors.Backend },
-  { from: { x: 72, y: 32 }, to: { x: 88, y: 38 }, color: categoryColors.Backend },
-  { from: { x: 72, y: 32 }, to: { x: 70, y: 44 }, color: categoryColors.Backend },
-  { from: { x: 70, y: 44 }, to: { x: 78, y: 50 }, color: categoryColors.Backend },
-  
-  // Database cluster connections
-  { from: { x: 72, y: 62 }, to: { x: 86, y: 54 }, color: categoryColors.Database },
-  { from: { x: 72, y: 62 }, to: { x: 64, y: 72 }, color: categoryColors.Database },
-  { from: { x: 72, y: 62 }, to: { x: 78, y: 70 }, color: categoryColors.Database },
-  { from: { x: 64, y: 72 }, to: { x: 56, y: 78 }, color: categoryColors.Database },
-  { from: { x: 78, y: 70 }, to: { x: 68, y: 82 }, color: categoryColors.Database },
-  { from: { x: 78, y: 70 }, to: { x: 82, y: 78 }, color: categoryColors.Database },
-  
-  // DevOps cluster connections
-  { from: { x: 32, y: 72 }, to: { x: 22, y: 82 }, color: categoryColors.DevOps },
-  { from: { x: 32, y: 72 }, to: { x: 42, y: 84 }, color: categoryColors.DevOps },
-  { from: { x: 22, y: 82 }, to: { x: 28, y: 90 }, color: categoryColors.DevOps },
-  { from: { x: 42, y: 84 }, to: { x: 52, y: 88 }, color: categoryColors.DevOps },
-  { from: { x: 28, y: 90 }, to: { x: 38, y: 92 }, color: categoryColors.DevOps },
-  
-  // AI cluster connections
-  { from: { x: 48, y: 48 }, to: { x: 38, y: 56 }, color: categoryColors.AI },
-  { from: { x: 48, y: 48 }, to: { x: 55, y: 62 }, color: categoryColors.Other },
-  
-  // Cross-category connections (subtle bridges)
-  { from: { x: 50, y: 24 }, to: { x: 22, y: 20 }, color: 'hsl(220, 15%, 40%)' }, // JS → Next.js
-  { from: { x: 50, y: 24 }, to: { x: 72, y: 32 }, color: 'hsl(220, 15%, 40%)' }, // JS → Node.js
-  { from: { x: 72, y: 32 }, to: { x: 72, y: 62 }, color: 'hsl(220, 15%, 40%)' }, // Node.js → PostgreSQL
-  { from: { x: 48, y: 48 }, to: { x: 72, y: 32 }, color: 'hsl(220, 15%, 40%)' }, // LLMs → Node.js
-  { from: { x: 26, y: 38 }, to: { x: 48, y: 48 }, color: 'hsl(220, 15%, 40%)' }, // Tailwind → LLMs
-  { from: { x: 44, y: 68 }, to: { x: 72, y: 62 }, color: 'hsl(220, 15%, 40%)' }, // GraphQL → PostgreSQL
-];
-
 // Generate random but consistent star positions
 const generateStars = (count: number) => {
   const stars = [];
@@ -203,9 +148,6 @@ const Skills = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          {/* Constellation connecting lines */}
-          <ConstellationLines connections={constellationConnections} />
-          
           {/* Skill nodes */}
           {skillsData.map((skill, index) => (
             <SkillNode
