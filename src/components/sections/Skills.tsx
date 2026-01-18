@@ -5,98 +5,93 @@ import SkillNode from '@/components/ui/SkillNode';
 import ConstellationLines from '@/components/ui/ConstellationLines';
 import SkillLegend from '@/components/ui/SkillLegend';
 
-// Skill data with positions for constellation layout
+// Skill data organized in clean rows by category
 const skillsData = [
-  // Frontend cluster (left-center area)
-  { name: 'React', category: 'Frontend', x: 20, y: 35, size: 'lg' as const },
-  { name: 'Next.js', category: 'Frontend', x: 28, y: 28, size: 'lg' as const },
-  { name: 'React Native', category: 'Frontend', x: 15, y: 45, size: 'md' as const },
-  { name: 'Redux', category: 'Frontend', x: 25, y: 50, size: 'md' as const },
-  { name: 'Zustand', category: 'Frontend', x: 12, y: 55, size: 'sm' as const },
-  { name: 'Tailwind', category: 'Frontend', x: 32, y: 42, size: 'md' as const },
-  { name: 'MUI', category: 'Frontend', x: 18, y: 62, size: 'sm' as const },
+  // Row 1: Languages (top)
+  { name: 'JavaScript', category: 'Languages', x: 15, y: 8, size: 'md' as const },
+  { name: 'TypeScript', category: 'Languages', x: 28, y: 8, size: 'lg' as const },
+  { name: 'C', category: 'Languages', x: 41, y: 8, size: 'sm' as const },
+  { name: 'C++', category: 'Languages', x: 52, y: 8, size: 'sm' as const },
+  { name: 'Golang', category: 'Languages', x: 64, y: 8, size: 'sm' as const },
+  { name: 'Python', category: 'Languages', x: 76, y: 8, size: 'md' as const },
+  { name: 'SQL', category: 'Languages', x: 88, y: 8, size: 'sm' as const },
 
-  // Backend cluster (right-center area)
-  { name: 'Node.js', category: 'Backend', x: 72, y: 30, size: 'lg' as const },
-  { name: 'NestJS', category: 'Backend', x: 80, y: 38, size: 'md' as const },
-  { name: 'Express', category: 'Backend', x: 68, y: 42, size: 'md' as const },
-  { name: 'WebSocket', category: 'Backend', x: 85, y: 28, size: 'sm' as const },
+  // Row 2: Frontend (upper-middle)
+  { name: 'React', category: 'Frontend', x: 10, y: 28, size: 'lg' as const },
+  { name: 'Next.js', category: 'Frontend', x: 22, y: 28, size: 'lg' as const },
+  { name: 'React Native', category: 'Frontend', x: 36, y: 28, size: 'md' as const },
+  { name: 'Redux', category: 'Frontend', x: 50, y: 28, size: 'md' as const },
+  { name: 'Recoil', category: 'Frontend', x: 62, y: 28, size: 'sm' as const },
+  { name: 'Zustand', category: 'Frontend', x: 74, y: 28, size: 'sm' as const },
+  { name: 'TailwindCSS', category: 'Frontend', x: 86, y: 28, size: 'md' as const },
+  { name: 'MUI', category: 'Frontend', x: 10, y: 42, size: 'sm' as const },
+  { name: 'Shadcn', category: 'Frontend', x: 22, y: 42, size: 'sm' as const },
 
-  // Database cluster (bottom-center area)
-  { name: 'PostgreSQL', category: 'Database', x: 45, y: 70, size: 'lg' as const },
-  { name: 'MongoDB', category: 'Database', x: 55, y: 75, size: 'md' as const },
-  { name: 'Prisma', category: 'Database', x: 38, y: 78, size: 'md' as const },
-  { name: 'Redis', category: 'Database', x: 62, y: 68, size: 'sm' as const },
-  { name: 'Firebase', category: 'Database', x: 50, y: 82, size: 'sm' as const },
+  // Row 3: Backend (middle)
+  { name: 'Node.js', category: 'Backend', x: 36, y: 42, size: 'lg' as const },
+  { name: 'NestJS', category: 'Backend', x: 50, y: 42, size: 'md' as const },
+  { name: 'Express', category: 'Backend', x: 64, y: 42, size: 'md' as const },
+  { name: 'WebSocket', category: 'Backend', x: 78, y: 42, size: 'sm' as const },
+  { name: 'WebRTC', category: 'Backend', x: 90, y: 42, size: 'sm' as const },
 
-  // Languages cluster (top-center area)
-  { name: 'TypeScript', category: 'Languages', x: 50, y: 20, size: 'lg' as const },
-  { name: 'JavaScript', category: 'Languages', x: 42, y: 28, size: 'md' as const },
-  { name: 'Python', category: 'Languages', x: 58, y: 25, size: 'md' as const },
-  { name: 'C++', category: 'Languages', x: 48, y: 12, size: 'sm' as const },
-  { name: 'Java', category: 'Languages', x: 55, y: 15, size: 'sm' as const },
+  // Row 4: Databases (lower-middle)
+  { name: 'MongoDB', category: 'Database', x: 12, y: 58, size: 'md' as const },
+  { name: 'PostgreSQL', category: 'Database', x: 26, y: 58, size: 'lg' as const },
+  { name: 'Firebase', category: 'Database', x: 42, y: 58, size: 'md' as const },
+  { name: 'Prisma ORM', category: 'Database', x: 56, y: 58, size: 'md' as const },
+  { name: 'MySQL', category: 'Database', x: 70, y: 58, size: 'sm' as const },
+  { name: 'Supabase', category: 'Database', x: 84, y: 58, size: 'md' as const },
 
-  // DevOps cluster (right area)
-  { name: 'Docker', category: 'DevOps', x: 82, y: 55, size: 'md' as const },
-  { name: 'AWS', category: 'DevOps', x: 88, y: 48, size: 'lg' as const },
-  { name: 'CI/CD', category: 'DevOps', x: 78, y: 62, size: 'sm' as const },
-  { name: 'Cloudflare', category: 'DevOps', x: 85, y: 68, size: 'sm' as const },
+  // Row 5: DevOps (lower)
+  { name: 'Docker', category: 'DevOps', x: 18, y: 74, size: 'md' as const },
+  { name: 'CI/CD', category: 'DevOps', x: 32, y: 74, size: 'sm' as const },
+  { name: 'AWS', category: 'DevOps', x: 46, y: 74, size: 'lg' as const },
+  { name: 'Cloudflare', category: 'DevOps', x: 60, y: 74, size: 'sm' as const },
+  { name: 'Vercel', category: 'DevOps', x: 74, y: 74, size: 'sm' as const },
+  { name: 'Netlify', category: 'DevOps', x: 86, y: 74, size: 'sm' as const },
 
-  // AI/Other cluster (left-bottom area)
-  { name: 'LLMs', category: 'AI/ML', x: 25, y: 75, size: 'lg' as const },
-  { name: 'Kafka', category: 'AI/ML', x: 15, y: 70, size: 'sm' as const },
-  { name: 'WebRTC', category: 'AI/ML', x: 30, y: 82, size: 'sm' as const },
-  { name: 'Serverless', category: 'AI/ML', x: 18, y: 82, size: 'sm' as const },
+  // Row 6: Tools & Other (bottom)
+  { name: 'LLMs', category: 'Tools', x: 14, y: 90, size: 'md' as const },
+  { name: 'LangChain', category: 'Tools', x: 28, y: 90, size: 'sm' as const },
+  { name: 'Redis', category: 'Tools', x: 42, y: 90, size: 'sm' as const },
+  { name: 'Kafka', category: 'Tools', x: 54, y: 90, size: 'sm' as const },
+  { name: 'Serverless', category: 'Tools', x: 68, y: 90, size: 'sm' as const },
+  { name: 'GraphQL', category: 'Tools', x: 82, y: 90, size: 'sm' as const },
 ];
 
 // Category colors
 const categoryColors: Record<string, string> = {
+  Languages: 'hsl(263, 70%, 71%)',    // purple
   Frontend: 'hsl(217, 92%, 69%)',     // blue
   Backend: 'hsl(160, 84%, 52%)',      // green
   Database: 'hsl(330, 71%, 66%)',     // pink
-  Languages: 'hsl(263, 70%, 71%)',    // purple
   DevOps: 'hsl(27, 96%, 61%)',        // orange
-  'AI/ML': 'hsl(45, 93%, 58%)',       // gold
+  Tools: 'hsl(45, 93%, 58%)',         // gold
 };
 
-// Generate connections between related skills
+// Generate simple horizontal connections within same row
 const generateConnections = () => {
   const connections: { from: { x: number; y: number }; to: { x: number; y: number }; color: string }[] = [];
   
-  // Connect within same category (nearby skills)
-  const categories = [...new Set(skillsData.map(s => s.category))];
+  // Group by Y position (row)
+  const rows = [8, 28, 42, 58, 74, 90];
   
-  categories.forEach(category => {
-    const categorySkills = skillsData.filter(s => s.category === category);
-    const color = categoryColors[category];
+  rows.forEach(y => {
+    const rowSkills = skillsData.filter(s => s.y === y).sort((a, b) => a.x - b.x);
     
-    for (let i = 0; i < categorySkills.length - 1; i++) {
-      connections.push({
-        from: { x: categorySkills[i].x, y: categorySkills[i].y },
-        to: { x: categorySkills[i + 1].x, y: categorySkills[i + 1].y },
-        color,
-      });
+    for (let i = 0; i < rowSkills.length - 1; i++) {
+      const current = rowSkills[i];
+      const next = rowSkills[i + 1];
+      
+      // Only connect if same category
+      if (current.category === next.category) {
+        connections.push({
+          from: { x: current.x, y: current.y },
+          to: { x: next.x, y: next.y },
+          color: categoryColors[current.category],
+        });
+      }
     }
-  });
-
-  // Add some cross-category connections for "full-stack" feel
-  // TypeScript to React
-  connections.push({
-    from: { x: 50, y: 20 },
-    to: { x: 20, y: 35 },
-    color: 'hsl(263, 70%, 71%)',
-  });
-  // TypeScript to Node.js
-  connections.push({
-    from: { x: 50, y: 20 },
-    to: { x: 72, y: 30 },
-    color: 'hsl(263, 70%, 71%)',
-  });
-  // Node.js to PostgreSQL
-  connections.push({
-    from: { x: 72, y: 30 },
-    to: { x: 45, y: 70 },
-    color: 'hsl(160, 84%, 52%)',
   });
 
   return connections;
@@ -134,23 +129,15 @@ const Skills = () => {
       className="relative min-h-screen py-24 md:py-32 overflow-hidden"
       style={{ backgroundColor: 'hsl(var(--skills-bg))' }}
     >
-      {/* Distant stars background */}
+      {/* Static distant stars background */}
       <div className="absolute inset-0">
-        {[...Array(50)].map((_, i) => (
-          <motion.div
+        {[...Array(30)].map((_, i) => (
+          <div
             key={i}
-            className="absolute w-0.5 h-0.5 bg-white rounded-full"
+            className="absolute w-0.5 h-0.5 bg-white/30 rounded-full"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              opacity: [0.2, 0.8, 0.2],
-            }}
-            transition={{
-              duration: 2 + Math.random() * 3,
-              repeat: Infinity,
-              delay: Math.random() * 2,
+              left: `${(i * 37) % 100}%`,
+              top: `${(i * 23) % 100}%`,
             }}
           />
         ))}
