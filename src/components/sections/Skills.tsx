@@ -69,18 +69,15 @@ const categoryColors: Record<string, string> = {
   Tools: "hsl(45, 93%, 58%)", // gold
 };
 
-// Strategic connections - balanced for visual clarity
+// Each cluster is a separate constellation - NO cross-cluster connections
 const explicitConnections = [
-  // === INTERNAL CLUSTER CONNECTIONS ===
-
   // Languages cluster - star pattern from TypeScript
   { from: "TypeScript", to: "JavaScript" },
   { from: "TypeScript", to: "Python" },
   { from: "TypeScript", to: "Golang" },
-  { from: "TypeScript", to: "C" },
+  { from: "Golang", to: "C" },
   { from: "JavaScript", to: "C++" },
   { from: "JavaScript", to: "SQL" },
-  { from: "Python", to: "SQL" },
 
   // Frontend cluster - tree from React/Next.js
   { from: "React", to: "Next.js" },
@@ -123,40 +120,6 @@ const explicitConnections = [
   { from: "LangChain", to: "Redis" },
   { from: "Redis", to: "GraphQL" },
   { from: "Serverless", to: "Redis" },
-
-  // === STRATEGIC INTER-CLUSTER BRIDGES (Minimal & Clean) ===
-
-  // Primary language bridges (hub connections only)
-  { from: "TypeScript", to: "React" }, // TS powers React
-  { from: "TypeScript", to: "Node.js" }, // TS powers Node
-  { from: "JavaScript", to: "React" }, // JS foundation
-  { from: "SQL", to: "PostgreSQL" }, // SQL to DB
-  { from: "Python", to: "LLMs" }, // Python for AI
-
-  // Frontend to Backend (main pathway)
-  { from: "Next.js", to: "Node.js" }, // Next.js → Node backend
-  { from: "React", to: "GraphQL" }, // React → GraphQL API
-
-  // Backend to Database (core connections)
-  { from: "Node.js", to: "PostgreSQL" }, // Node → PostgreSQL
-  { from: "Express", to: "MongoDB" }, // Express → MongoDB
-  { from: "Node.js", to: "Redis" }, // Node → Redis cache
-
-  // Frontend to Deployment (major platforms)
-  { from: "Next.js", to: "Vercel" }, // Next.js → Vercel
-  { from: "React", to: "AWS" }, // React → AWS hosting
-
-  // Backend to DevOps (deployment pathway)
-  { from: "Node.js", to: "Docker" }, // Node → Docker
-  { from: "Express", to: "AWS" }, // Express → AWS
-
-  // Database to DevOps (data hosting)
-  { from: "PostgreSQL", to: "AWS" }, // PostgreSQL → AWS RDS
-  { from: "MongoDB", to: "Docker" }, // MongoDB → Docker
-
-  // Tools to Infrastructure (serverless)
-  { from: "Serverless", to: "AWS" }, // Serverless → AWS Lambda
-  { from: "GraphQL", to: "Node.js" }, // GraphQL → Node server
 ];
 
 // Generate connections from explicit definitions
