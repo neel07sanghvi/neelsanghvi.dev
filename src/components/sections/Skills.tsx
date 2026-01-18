@@ -69,22 +69,67 @@ const categoryColors: Record<string, string> = {
   Tools: 'hsl(45, 93%, 58%)',         // gold
 };
 
-// Generate connections within clusters
+// Define explicit connections for each cluster (matching the reference design)
+const explicitConnections = [
+  // Languages cluster - star pattern from TypeScript
+  { from: 'TypeScript', to: 'JavaScript' },
+  { from: 'TypeScript', to: 'Python' },
+  { from: 'TypeScript', to: 'Golang' },
+  { from: 'JavaScript', to: 'C++' },
+  { from: 'Python', to: 'C' },
+  { from: 'JavaScript', to: 'SQL' },
+
+  // Frontend cluster - branching from React/Next.js
+  { from: 'React', to: 'Next.js' },
+  { from: 'React', to: 'React Native' },
+  { from: 'React', to: 'Redux' },
+  { from: 'React Native', to: 'Recoil' },
+  { from: 'Redux', to: 'Zustand' },
+  { from: 'Next.js', to: 'TailwindCSS' },
+  { from: 'Recoil', to: 'MUI' },
+  { from: 'Zustand', to: 'Shadcn' },
+
+  // Backend cluster - branching from Node.js
+  { from: 'Node.js', to: 'NestJS' },
+  { from: 'Node.js', to: 'Express' },
+  { from: 'NestJS', to: 'WebSocket' },
+  { from: 'Express', to: 'WebRTC' },
+
+  // Database cluster - branching from PostgreSQL
+  { from: 'PostgreSQL', to: 'MongoDB' },
+  { from: 'PostgreSQL', to: 'Firebase' },
+  { from: 'MongoDB', to: 'Prisma ORM' },
+  { from: 'Firebase', to: 'MySQL' },
+  { from: 'Prisma ORM', to: 'Supabase' },
+
+  // DevOps cluster - branching from AWS
+  { from: 'AWS', to: 'Docker' },
+  { from: 'AWS', to: 'Vercel' },
+  { from: 'Docker', to: 'CI/CD' },
+  { from: 'Docker', to: 'Cloudflare' },
+  { from: 'CI/CD', to: 'Netlify' },
+
+  // Tools cluster - branching from LLMs
+  { from: 'LLMs', to: 'LangChain' },
+  { from: 'LLMs', to: 'Kafka' },
+  { from: 'LLMs', to: 'Serverless' },
+  { from: 'LangChain', to: 'Redis' },
+  { from: 'Redis', to: 'GraphQL' },
+];
+
+// Generate connections from explicit definitions
 const generateConnections = () => {
   const connections: { from: { x: number; y: number }; to: { x: number; y: number }; color: string }[] = [];
   
-  const categories = [...new Set(skillsData.map(s => s.category))];
-  
-  categories.forEach(category => {
-    const categorySkills = skillsData.filter(s => s.category === category);
-    const color = categoryColors[category];
+  explicitConnections.forEach(conn => {
+    const fromSkill = skillsData.find(s => s.name === conn.from);
+    const toSkill = skillsData.find(s => s.name === conn.to);
     
-    // Connect first skill to next few in category
-    for (let i = 0; i < categorySkills.length - 1; i++) {
+    if (fromSkill && toSkill) {
       connections.push({
-        from: { x: categorySkills[i].x, y: categorySkills[i].y },
-        to: { x: categorySkills[i + 1].x, y: categorySkills[i + 1].y },
-        color,
+        from: { x: fromSkill.x, y: fromSkill.y },
+        to: { x: toSkill.x, y: toSkill.y },
+        color: categoryColors[fromSkill.category],
       });
     }
   });
