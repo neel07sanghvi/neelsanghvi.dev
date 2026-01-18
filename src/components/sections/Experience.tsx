@@ -11,7 +11,6 @@ const experiences = [
     period: "02/2023 – 03/2025",
     location: "Ahmedabad, India",
     // tech: ["React", "TypeScript", "Redux", "MUI", "AWS", "LLMs", "React Native"],
-    tech: [],
     highlights: [
       "Built modular UI component library, reducing manual effort by 50%",
       "Implemented WebSocket Pub/Sub for real-time collaboration",
