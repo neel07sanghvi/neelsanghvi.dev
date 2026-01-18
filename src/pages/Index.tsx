@@ -1,6 +1,7 @@
 import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider';
 import Hero from '@/components/sections/Hero';
 import About from '@/components/sections/About';
+import Experience from '@/components/sections/Experience';
 
 const Index = () => {
   return (
@@ -11,10 +12,7 @@ const Index = () => {
       <main className="relative">
         <Hero />
         <About />
-        
-        <section id="experience" className="min-h-screen bg-experience flex items-center justify-center">
-          <p className="text-muted-foreground text-lg">Experience Section</p>
-        </section>
+        <Experience />
         
         <section id="skills" className="min-h-screen bg-skills flex items-center justify-center">
           <p className="text-muted-foreground text-lg">Skills Section</p>
