@@ -6,7 +6,7 @@ import TextReveal from '@/components/ui/TextReveal';
 const stats = [
   { end: 3, suffix: '+', label: 'Years Experience' },
   { end: 500, suffix: '+', label: 'LeetCode Problems' },
-  { end: 1, suffix: 'st', label: 'ICPC University' },
+  { end: 2020, suffix: '', label: 'ICPC Regionalist' },
 ];
 
 const achievements = [
