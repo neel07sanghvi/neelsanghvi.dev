@@ -5,58 +5,58 @@ import SkillNode from '@/components/ui/SkillNode';
 import ConstellationLines from '@/components/ui/ConstellationLines';
 import SkillLegend from '@/components/ui/SkillLegend';
 
-// Skill data organized in clean rows by category
+// Skill data with cleaner clustered positions
 const skillsData = [
-  // Row 1: Languages (top)
-  { name: 'JavaScript', category: 'Languages', x: 15, y: 8, size: 'md' as const },
-  { name: 'TypeScript', category: 'Languages', x: 28, y: 8, size: 'lg' as const },
-  { name: 'C', category: 'Languages', x: 41, y: 8, size: 'sm' as const },
-  { name: 'C++', category: 'Languages', x: 52, y: 8, size: 'sm' as const },
-  { name: 'Golang', category: 'Languages', x: 64, y: 8, size: 'sm' as const },
-  { name: 'Python', category: 'Languages', x: 76, y: 8, size: 'md' as const },
-  { name: 'SQL', category: 'Languages', x: 88, y: 8, size: 'sm' as const },
+  // Languages cluster (top-center)
+  { name: 'TypeScript', category: 'Languages', x: 48, y: 12, size: 'lg' as const },
+  { name: 'JavaScript', category: 'Languages', x: 38, y: 18, size: 'md' as const },
+  { name: 'Python', category: 'Languages', x: 58, y: 18, size: 'md' as const },
+  { name: 'C++', category: 'Languages', x: 32, y: 10, size: 'sm' as const },
+  { name: 'C', category: 'Languages', x: 64, y: 10, size: 'sm' as const },
+  { name: 'Golang', category: 'Languages', x: 52, y: 6, size: 'sm' as const },
+  { name: 'SQL', category: 'Languages', x: 44, y: 22, size: 'sm' as const },
 
-  // Row 2: Frontend (upper-middle)
-  { name: 'React', category: 'Frontend', x: 10, y: 28, size: 'lg' as const },
-  { name: 'Next.js', category: 'Frontend', x: 22, y: 28, size: 'lg' as const },
-  { name: 'React Native', category: 'Frontend', x: 36, y: 28, size: 'md' as const },
-  { name: 'Redux', category: 'Frontend', x: 50, y: 28, size: 'md' as const },
-  { name: 'Recoil', category: 'Frontend', x: 62, y: 28, size: 'sm' as const },
-  { name: 'Zustand', category: 'Frontend', x: 74, y: 28, size: 'sm' as const },
-  { name: 'TailwindCSS', category: 'Frontend', x: 86, y: 28, size: 'md' as const },
-  { name: 'MUI', category: 'Frontend', x: 10, y: 42, size: 'sm' as const },
-  { name: 'Shadcn', category: 'Frontend', x: 22, y: 42, size: 'sm' as const },
+  // Frontend cluster (left side)
+  { name: 'React', category: 'Frontend', x: 18, y: 38, size: 'lg' as const },
+  { name: 'Next.js', category: 'Frontend', x: 28, y: 32, size: 'lg' as const },
+  { name: 'React Native', category: 'Frontend', x: 12, y: 48, size: 'md' as const },
+  { name: 'Redux', category: 'Frontend', x: 24, y: 46, size: 'md' as const },
+  { name: 'Recoil', category: 'Frontend', x: 8, y: 56, size: 'sm' as const },
+  { name: 'Zustand', category: 'Frontend', x: 18, y: 58, size: 'sm' as const },
+  { name: 'TailwindCSS', category: 'Frontend', x: 32, y: 54, size: 'md' as const },
+  { name: 'MUI', category: 'Frontend', x: 10, y: 66, size: 'sm' as const },
+  { name: 'Shadcn', category: 'Frontend', x: 22, y: 68, size: 'sm' as const },
 
-  // Row 3: Backend (middle)
-  { name: 'Node.js', category: 'Backend', x: 36, y: 42, size: 'lg' as const },
-  { name: 'NestJS', category: 'Backend', x: 50, y: 42, size: 'md' as const },
-  { name: 'Express', category: 'Backend', x: 64, y: 42, size: 'md' as const },
-  { name: 'WebSocket', category: 'Backend', x: 78, y: 42, size: 'sm' as const },
-  { name: 'WebRTC', category: 'Backend', x: 90, y: 42, size: 'sm' as const },
+  // Backend cluster (right side)
+  { name: 'Node.js', category: 'Backend', x: 78, y: 36, size: 'lg' as const },
+  { name: 'NestJS', category: 'Backend', x: 86, y: 44, size: 'md' as const },
+  { name: 'Express', category: 'Backend', x: 72, y: 48, size: 'md' as const },
+  { name: 'WebSocket', category: 'Backend', x: 90, y: 54, size: 'sm' as const },
+  { name: 'WebRTC', category: 'Backend', x: 82, y: 58, size: 'sm' as const },
 
-  // Row 4: Databases (lower-middle)
-  { name: 'MongoDB', category: 'Database', x: 12, y: 58, size: 'md' as const },
-  { name: 'PostgreSQL', category: 'Database', x: 26, y: 58, size: 'lg' as const },
-  { name: 'Firebase', category: 'Database', x: 42, y: 58, size: 'md' as const },
-  { name: 'Prisma ORM', category: 'Database', x: 56, y: 58, size: 'md' as const },
-  { name: 'MySQL', category: 'Database', x: 70, y: 58, size: 'sm' as const },
-  { name: 'Supabase', category: 'Database', x: 84, y: 58, size: 'md' as const },
+  // Database cluster (center-bottom)
+  { name: 'PostgreSQL', category: 'Database', x: 48, y: 52, size: 'lg' as const },
+  { name: 'MongoDB', category: 'Database', x: 56, y: 46, size: 'md' as const },
+  { name: 'Firebase', category: 'Database', x: 40, y: 60, size: 'md' as const },
+  { name: 'Prisma ORM', category: 'Database', x: 58, y: 58, size: 'sm' as const },
+  { name: 'MySQL', category: 'Database', x: 44, y: 68, size: 'sm' as const },
+  { name: 'Supabase', category: 'Database', x: 54, y: 66, size: 'md' as const },
 
-  // Row 5: DevOps (lower)
-  { name: 'Docker', category: 'DevOps', x: 18, y: 74, size: 'md' as const },
-  { name: 'CI/CD', category: 'DevOps', x: 32, y: 74, size: 'sm' as const },
-  { name: 'AWS', category: 'DevOps', x: 46, y: 74, size: 'lg' as const },
-  { name: 'Cloudflare', category: 'DevOps', x: 60, y: 74, size: 'sm' as const },
-  { name: 'Vercel', category: 'DevOps', x: 74, y: 74, size: 'sm' as const },
-  { name: 'Netlify', category: 'DevOps', x: 86, y: 74, size: 'sm' as const },
+  // DevOps cluster (bottom-right)
+  { name: 'AWS', category: 'DevOps', x: 76, y: 72, size: 'lg' as const },
+  { name: 'Docker', category: 'DevOps', x: 68, y: 78, size: 'md' as const },
+  { name: 'CI/CD', category: 'DevOps', x: 84, y: 80, size: 'sm' as const },
+  { name: 'Cloudflare', category: 'DevOps', x: 72, y: 86, size: 'sm' as const },
+  { name: 'Vercel', category: 'DevOps', x: 88, y: 68, size: 'sm' as const },
+  { name: 'Netlify', category: 'DevOps', x: 80, y: 88, size: 'sm' as const },
 
-  // Row 6: Tools & Other (bottom)
-  { name: 'LLMs', category: 'Tools', x: 14, y: 90, size: 'md' as const },
-  { name: 'LangChain', category: 'Tools', x: 28, y: 90, size: 'sm' as const },
-  { name: 'Redis', category: 'Tools', x: 42, y: 90, size: 'sm' as const },
-  { name: 'Kafka', category: 'Tools', x: 54, y: 90, size: 'sm' as const },
-  { name: 'Serverless', category: 'Tools', x: 68, y: 90, size: 'sm' as const },
-  { name: 'GraphQL', category: 'Tools', x: 82, y: 90, size: 'sm' as const },
+  // Tools cluster (bottom-left)
+  { name: 'LLMs', category: 'Tools', x: 22, y: 80, size: 'md' as const },
+  { name: 'LangChain', category: 'Tools', x: 14, y: 86, size: 'sm' as const },
+  { name: 'Redis', category: 'Tools', x: 30, y: 88, size: 'sm' as const },
+  { name: 'Kafka', category: 'Tools', x: 8, y: 78, size: 'sm' as const },
+  { name: 'Serverless', category: 'Tools', x: 36, y: 82, size: 'sm' as const },
+  { name: 'GraphQL', category: 'Tools', x: 26, y: 92, size: 'sm' as const },
 ];
 
 // Category colors
@@ -69,28 +69,23 @@ const categoryColors: Record<string, string> = {
   Tools: 'hsl(45, 93%, 58%)',         // gold
 };
 
-// Generate simple horizontal connections within same row
+// Generate connections within clusters
 const generateConnections = () => {
   const connections: { from: { x: number; y: number }; to: { x: number; y: number }; color: string }[] = [];
   
-  // Group by Y position (row)
-  const rows = [8, 28, 42, 58, 74, 90];
+  const categories = [...new Set(skillsData.map(s => s.category))];
   
-  rows.forEach(y => {
-    const rowSkills = skillsData.filter(s => s.y === y).sort((a, b) => a.x - b.x);
+  categories.forEach(category => {
+    const categorySkills = skillsData.filter(s => s.category === category);
+    const color = categoryColors[category];
     
-    for (let i = 0; i < rowSkills.length - 1; i++) {
-      const current = rowSkills[i];
-      const next = rowSkills[i + 1];
-      
-      // Only connect if same category
-      if (current.category === next.category) {
-        connections.push({
-          from: { x: current.x, y: current.y },
-          to: { x: next.x, y: next.y },
-          color: categoryColors[current.category],
-        });
-      }
+    // Connect first skill to next few in category
+    for (let i = 0; i < categorySkills.length - 1; i++) {
+      connections.push({
+        from: { x: categorySkills[i].x, y: categorySkills[i].y },
+        to: { x: categorySkills[i + 1].x, y: categorySkills[i + 1].y },
+        color,
+      });
     }
   });
 
