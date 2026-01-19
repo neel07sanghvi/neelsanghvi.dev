@@ -41,8 +41,7 @@ const Experience = () => {
   return (
     <section 
       id="experience" 
-      className="relative min-h-screen py-24 md:py-32 overflow-hidden"
-      style={{ backgroundColor: 'hsl(var(--experience))' }}
+      className="relative min-h-screen py-24 md:py-32 overflow-hidden bg-section-experience"
     >
       {/* Subtle gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-about/50 via-transparent to-transparent" />

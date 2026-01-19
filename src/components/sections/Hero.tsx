@@ -34,7 +34,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-hero">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-section-hero">
       {/* Floating particles background */}
       <FloatingParticles count={60} mousePosition={mousePosition} />
 

@@ -148,8 +148,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative min-h-screen py-16 md:py-24 lg:py-32 overflow-hidden"
-      style={{ backgroundColor: "hsl(var(--contact-bg))" }}
+      className="relative min-h-screen py-16 md:py-24 lg:py-32 overflow-hidden bg-section-contact"
     >
       {/* Static distant stars background - matching Skills section */}
       <div className="absolute inset-0">

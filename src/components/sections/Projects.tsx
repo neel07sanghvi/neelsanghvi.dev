@@ -59,8 +59,7 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="relative min-h-screen py-24 md:py-32 overflow-hidden"
-      style={{ backgroundColor: "hsl(var(--projects-bg))" }}
+      className="relative min-h-screen py-24 md:py-32 overflow-hidden bg-section-projects"
     >
       {/* Background effects */}
       <div className="absolute inset-0">
