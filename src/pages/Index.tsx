@@ -4,6 +4,7 @@ import About from '@/components/sections/About';
 import Experience from '@/components/sections/Experience';
 import Skills from '@/components/sections/Skills';
 import Projects from '@/components/sections/Projects';
+import Contact from '@/components/sections/Contact';
 
 const Index = () => {
   return (
@@ -17,10 +18,7 @@ const Index = () => {
         <Experience />
         <Skills />
         <Projects />
-        
-        <section id="contact" className="min-h-screen bg-contact flex items-center justify-center">
-          <p className="text-muted-foreground text-lg">Contact Section</p>
-        </section>
+        <Contact />
       </main>
     </SmoothScrollProvider>
   );
