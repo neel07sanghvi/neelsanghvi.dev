@@ -68,13 +68,8 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
       }}
       className="group relative"
     >
-      {/* Card glow effect on hover */}
-      <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-accent-purple/50 via-accent-blue/50 to-accent-cyan/50 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
-      
       {/* Main card */}
-      <div className="relative h-full bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl p-6 md:p-8 overflow-hidden">
-        {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-accent-purple/5 via-transparent to-accent-blue/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="relative h-full bg-card/80 backdrop-blur-sm border border-border/50 group-hover:border-border rounded-2xl p-6 md:p-8 overflow-hidden transition-colors duration-300">
         
         {/* Content */}
         <div className="relative z-10 flex flex-col h-full">
@@ -149,9 +144,6 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
             ))}
           </ul>
         </div>
-        
-        {/* Corner accent */}
-        <div className="absolute -bottom-12 -right-12 w-32 h-32 bg-gradient-radial from-accent-purple/20 to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
     </motion.div>
   );
