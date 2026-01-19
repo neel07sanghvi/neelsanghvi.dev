@@ -1,6 +1,6 @@
 # Neel Sanghvi
 
-Personal portfolio website showcasing my work as a Full Stack Developer./n
+Personal portfolio website showcasing my work as a Full Stack Developer. <br/>
 Link - [neelsanghvi.dev](https://neelsanghvi.dev/)
 
 ## Technologies Used
