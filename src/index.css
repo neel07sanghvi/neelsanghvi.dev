@@ -9,13 +9,13 @@
 
 @layer base {
   :root {
-    /* Section backgrounds - the journey progression */
-    --hero-bg: 224 71% 3%;           /* #030712 near black */
-    --about-bg: 220 60% 8%;          /* #0a1120 dark blue */
-    --experience-bg: 222 47% 11%;    /* #0f172a slate 900 */
-    --skills-bg: 226 71% 2%;         /* #020617 deep space */
-    --projects-bg: 222 47% 9%;         /* #0d1424 deep slate */
-    --contact-bg: 222 47% 11%;       /* #0f172a - matching dark slate theme */
+    /* Section backgrounds - unified 2-tone strategy */
+    --hero-bg: 222 47% 11%;          /* #0f172a dark slate blue */
+    --about-bg: 222 47% 11%;         /* #0f172a dark slate blue */
+    --experience-bg: 222 47% 11%;    /* #0f172a dark slate blue */
+    --skills-bg: 226 71% 2%;         /* #020617 deep space for starfield */
+    --projects-bg: 222 47% 11%;      /* #0f172a dark slate blue */
+    --contact-bg: 222 47% 11%;       /* #0f172a dark slate blue */
 
     /* Accent colors by section */
     --accent-blue: 217 91% 60%;      /* #3B82F6 soft blue */
