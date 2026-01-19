@@ -29,7 +29,7 @@ const achievements = [
 
 const About = () => {
   return (
-    <section id="about" className="relative min-h-screen py-24 md:py-32 overflow-hidden bg-about">
+    <section id="about" className="relative min-h-screen py-24 md:py-32 overflow-hidden bg-section-about">
       {/* Floating orbs background */}
       <FloatingOrbs count={6} />
 

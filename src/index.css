@@ -9,13 +9,17 @@
 
 @layer base {
   :root {
-    /* Section backgrounds - unified 2-tone strategy */
-    --hero-bg: 222 47% 11%;          /* #0f172a dark slate blue */
-    --about-bg: 222 47% 11%;         /* #0f172a dark slate blue */
-    --experience-bg: 222 47% 11%;    /* #0f172a dark slate blue */
-    --skills-bg: 226 71% 2%;         /* #020617 deep space for starfield */
-    --projects-bg: 222 47% 11%;      /* #0f172a dark slate blue */
-    --contact-bg: 222 47% 11%;       /* #0f172a dark slate blue */
+    /* Section gradient colors - flowing transitions */
+    --color-hero-start: 224 71% 3%;       /* #030712 near black */
+    --color-hero-end: 222 47% 11%;        /* #0f172a slate */
+    --color-about-end: 220 52% 10%;       /* #0c1929 warm slate */
+    --color-experience-end: 222 55% 9%;   /* #0a1525 deep slate */
+    --color-skills-mid: 226 71% 2%;       /* #020617 deep space */
+    --color-projects-end: 222 47% 11%;    /* #0f172a slate */
+    --color-contact-end: 220 39% 11%;     /* #111827 warm end */
+    
+    /* Keep skills-bg for backwards compat */
+    --skills-bg: 226 71% 2%;
 
     /* Accent colors by section */
     --accent-blue: 217 91% 60%;      /* #3B82F6 soft blue */
@@ -95,6 +99,57 @@
 }
 
 @layer components {
+  /* Section gradient backgrounds - flowing transitions */
+  .bg-section-hero {
+    background: linear-gradient(
+      to bottom,
+      hsl(var(--color-hero-start)) 0%,
+      hsl(var(--color-hero-end)) 100%
+    );
+  }
+
+  .bg-section-about {
+    background: linear-gradient(
+      to bottom,
+      hsl(var(--color-hero-end)) 0%,
+      hsl(var(--color-about-end)) 100%
+    );
+  }
+
+  .bg-section-experience {
+    background: linear-gradient(
+      to bottom,
+      hsl(var(--color-about-end)) 0%,
+      hsl(var(--color-experience-end)) 100%
+    );
+  }
+
+  .bg-section-skills {
+    background: linear-gradient(
+      to bottom,
+      hsl(var(--color-experience-end)) 0%,
+      hsl(var(--color-skills-mid)) 40%,
+      hsl(var(--color-skills-mid)) 60%,
+      hsl(var(--color-experience-end)) 100%
+    );
+  }
+
+  .bg-section-projects {
+    background: linear-gradient(
+      to bottom,
+      hsl(var(--color-experience-end)) 0%,
+      hsl(var(--color-projects-end)) 100%
+    );
+  }
+
+  .bg-section-contact {
+    background: linear-gradient(
+      to bottom,
+      hsl(var(--color-projects-end)) 0%,
+      hsl(var(--color-contact-end)) 100%
+    );
+  }
+
   /* Noise texture overlay */
   .noise-overlay {
     position: fixed;

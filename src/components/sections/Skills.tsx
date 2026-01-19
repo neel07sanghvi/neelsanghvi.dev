@@ -238,8 +238,7 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="relative min-h-screen py-24 md:py-32 overflow-hidden"
-      style={{ backgroundColor: "hsl(var(--skills-bg))" }}
+      className="relative min-h-screen py-24 md:py-32 overflow-hidden bg-section-skills"
     >
       {/* Static distant stars background */}
       <div className="absolute inset-0">
