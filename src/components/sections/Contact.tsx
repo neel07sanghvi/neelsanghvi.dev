@@ -200,14 +200,14 @@ export default function Contact() {
           </TextReveal>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
           {/* Contact Info Side */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-4"
+            className="space-y-3"
           >
             {/* Contact Links - styled like About section achievements */}
             {contactLinks.map((link) => (
@@ -218,7 +218,7 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
-                className="group block p-4 rounded-lg border transition-all duration-300"
+                className="group block p-3 sm:p-4 rounded-lg border transition-all duration-300"
                 style={{
                   borderColor: 'hsl(var(--accent-blue) / 0.2)',
                   backgroundColor: 'hsl(var(--accent-blue) / 0.05)',
@@ -232,20 +232,20 @@ export default function Contact() {
                   e.currentTarget.style.borderColor = 'hsl(var(--accent-blue) / 0.2)';
                 }}
               >
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3 sm:gap-4">
                   <div 
-                    className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+                    className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
                     style={{ backgroundColor: 'hsl(var(--accent-blue) / 0.15)' }}
                   >
-                    <link.icon className="w-5 h-5" style={{ color: 'hsl(var(--accent-blue))' }} />
+                    <link.icon className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: 'hsl(var(--accent-blue))' }} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-muted-foreground">{link.label}</p>
-                    <p className="text-foreground truncate group-hover:text-accent-blue transition-colors">
+                    <p className="text-xs sm:text-sm text-muted-foreground">{link.label}</p>
+                    <p className="text-sm sm:text-base text-foreground truncate group-hover:text-accent-blue transition-colors">
                       {link.value}
                     </p>
                   </div>
-                  <ExternalLink className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <ExternalLink className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block" />
                 </div>
               </motion.a>
             ))}
@@ -256,7 +256,7 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="p-6 rounded-lg border mt-6"
+              className="p-4 sm:p-6 rounded-lg border mt-4 sm:mt-6"
               style={{
                 borderColor: 'hsl(var(--accent-cyan) / 0.2)',
                 backgroundColor: 'hsl(var(--accent-cyan) / 0.05)',
@@ -292,13 +292,13 @@ export default function Contact() {
 
           {/* Contact Form Side */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
             <div 
-              className="p-6 md:p-8 rounded-lg border"
+              className="p-5 sm:p-6 md:p-8 rounded-lg border"
               style={{
                 borderColor: 'hsl(var(--accent-blue) / 0.2)',
                 backgroundColor: 'hsl(var(--accent-blue) / 0.05)',
@@ -308,7 +308,7 @@ export default function Contact() {
                 Send Me a Message
               </h3>
               
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-muted-foreground mb-2">
                     Name

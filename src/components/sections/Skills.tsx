@@ -285,8 +285,8 @@ const Skills = () => {
           </TextReveal>
         </div>
 
-        {/* Legend */}
-        <div className="mb-8">
+        {/* Legend - hidden on mobile since categories are shown inline */}
+        <div className="mb-8 hidden md:block">
           <SkillLegend categories={categories} activeCategory={activeCategory} onCategoryHover={setActiveCategory} />
         </div>
 
