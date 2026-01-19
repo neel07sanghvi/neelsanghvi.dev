@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 declare global {
   interface Window {
@@ -7,41 +7,64 @@ declare global {
       reset: (widgetId?: string) => void;
       getResponse: (widgetId?: string) => string;
     };
+    onHCaptchaLoad?: () => void;
   }
 }
 
-interface HCaptchaProps {
-  onVerify?: (token: string) => void;
-}
-
-export default function HCaptcha({ onVerify }: HCaptchaProps) {
-  const [isClient, setIsClient] = useState(false);
+export default function HCaptcha() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const widgetIdRef = useRef<string | null>(null);
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
+    const renderCaptcha = () => {
+      if (containerRef.current && window.hcaptcha && !widgetIdRef.current) {
+        try {
+          widgetIdRef.current = window.hcaptcha.render(containerRef.current, {
+            sitekey: '50b2fe65-b00b-4b9e-ad62-3ba471098be2',
+            theme: 'dark',
+          });
+        } catch (e) {
+          // Already rendered
+        }
+      }
+    };
 
-  useEffect(() => {
-    if (!isClient) return;
-
-    // Load hCaptcha script if not already loaded
-    const existingScript = document.querySelector('script[src*="hcaptcha"]');
-    if (!existingScript) {
-      const script = document.createElement('script');
-      script.src = 'https://js.hcaptcha.com/1/api.js';
-      script.async = true;
-      script.defer = true;
-      document.head.appendChild(script);
+    // Check if hCaptcha is already loaded
+    if (window.hcaptcha) {
+      renderCaptcha();
+    } else {
+      // Load hCaptcha script
+      const existingScript = document.querySelector('script[src*="hcaptcha.com"]');
+      if (!existingScript) {
+        window.onHCaptchaLoad = renderCaptcha;
+        const script = document.createElement('script');
+        script.src = 'https://js.hcaptcha.com/1/api.js?onload=onHCaptchaLoad&render=explicit';
+        script.async = true;
+        script.defer = true;
+        document.head.appendChild(script);
+      } else {
+        // Script exists but might still be loading
+        const checkInterval = setInterval(() => {
+          if (window.hcaptcha) {
+            clearInterval(checkInterval);
+            renderCaptcha();
+          }
+        }, 100);
+        
+        // Clean up interval after 10 seconds
+        setTimeout(() => clearInterval(checkInterval), 10000);
+      }
     }
-  }, [isClient]);
 
-  if (!isClient) return null;
+    return () => {
+      widgetIdRef.current = null;
+    };
+  }, []);
 
   return (
     <div 
-      className="h-captcha" 
-      data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
-      data-theme="dark"
+      ref={containerRef}
+      className="flex justify-start"
     />
   );
 }

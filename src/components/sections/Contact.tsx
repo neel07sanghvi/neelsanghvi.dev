@@ -139,11 +139,28 @@ export default function Contact() {
       className="relative min-h-screen py-24 md:py-32 overflow-hidden"
       style={{ backgroundColor: 'hsl(var(--contact-bg))' }}
     >
+      {/* Static distant stars background - matching Skills section */}
+      <div className="absolute inset-0">
+        {[...Array(25)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-0.5 h-0.5 bg-white/30 rounded-full"
+            style={{
+              left: `${(i * 41) % 100}%`,
+              top: `${(i * 29) % 100}%`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Nebula glow - matching Skills section style */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-20 blur-3xl bg-gradient-radial from-accent-purple/30 via-accent-blue/20 to-transparent" />
+
       {/* Ambient glow - matching other sections */}
       <motion.div
-        className="absolute top-1/3 right-1/4 w-96 h-96 rounded-full opacity-10"
+        className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full opacity-10"
         style={{ 
-          background: 'radial-gradient(circle, hsl(var(--accent-pink)) 0%, transparent 70%)' 
+          background: 'radial-gradient(circle, hsl(var(--accent-blue)) 0%, transparent 70%)' 
         }}
         animate={{
           scale: [1, 1.2, 1],
@@ -151,25 +168,17 @@ export default function Contact() {
         }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
-      <motion.div
-        className="absolute bottom-1/4 left-1/4 w-80 h-80 rounded-full opacity-10"
-        style={{ 
-          background: 'radial-gradient(circle, hsl(var(--accent-purple)) 0%, transparent 70%)' 
-        }}
-        animate={{
-          scale: [1.2, 1, 1.2],
-          opacity: [0.08, 0.12, 0.08]
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
 
       <div className="container relative z-10 mx-auto px-6 max-w-5xl">
-        {/* Section Header - matching Experience section style */}
+        {/* Section Header - matching other sections */}
         <div className="text-center mb-16 md:mb-24">
           <TextReveal>
             <motion.span 
-              className="inline-block px-4 py-1.5 text-sm font-mono text-accent-pink border border-accent-pink/30 rounded-full mb-6"
-              style={{ color: 'hsl(var(--accent-pink))' }}
+              className="inline-block px-4 py-1.5 text-sm font-mono border rounded-full mb-6"
+              style={{ 
+                color: 'hsl(var(--accent-cyan))',
+                borderColor: 'hsl(var(--accent-cyan) / 0.3)'
+              }}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -198,7 +207,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-6"
+            className="space-y-4"
           >
             {/* Contact Links - styled like About section achievements */}
             {contactLinks.map((link, index) => (
@@ -211,18 +220,30 @@ export default function Contact() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="group block p-4 rounded-lg border border-accent-pink/20 bg-accent-pink/5 hover:bg-accent-pink/10 hover:border-accent-pink/40 transition-all duration-300"
+                className="group block p-4 rounded-lg border transition-all duration-300"
+                style={{
+                  borderColor: 'hsl(var(--accent-blue) / 0.2)',
+                  backgroundColor: 'hsl(var(--accent-blue) / 0.05)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'hsl(var(--accent-blue) / 0.1)';
+                  e.currentTarget.style.borderColor = 'hsl(var(--accent-blue) / 0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'hsl(var(--accent-blue) / 0.05)';
+                  e.currentTarget.style.borderColor = 'hsl(var(--accent-blue) / 0.2)';
+                }}
               >
                 <div className="flex items-center gap-4">
                   <div 
                     className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
-                    style={{ backgroundColor: 'hsl(var(--accent-pink) / 0.15)' }}
+                    style={{ backgroundColor: 'hsl(var(--accent-blue) / 0.15)' }}
                   >
-                    <link.icon className="w-5 h-5" style={{ color: 'hsl(var(--accent-pink))' }} />
+                    <link.icon className="w-5 h-5" style={{ color: 'hsl(var(--accent-blue))' }} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm text-muted-foreground">{link.label}</p>
-                    <p className="text-foreground truncate group-hover:text-accent-pink transition-colors" style={{ ['--tw-text-opacity' as string]: 1 }}>
+                    <p className="text-foreground truncate group-hover:text-accent-blue transition-colors">
                       {link.value}
                     </p>
                   </div>
@@ -237,10 +258,14 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="p-6 rounded-lg border border-accent-purple/20 bg-accent-purple/5"
+              className="p-6 rounded-lg border mt-6"
+              style={{
+                borderColor: 'hsl(var(--accent-cyan) / 0.2)',
+                backgroundColor: 'hsl(var(--accent-cyan) / 0.05)',
+              }}
             >
               <div className="flex items-center gap-3 mb-3">
-                <FileText className="w-5 h-5" style={{ color: 'hsl(var(--accent-purple))' }} />
+                <FileText className="w-5 h-5" style={{ color: 'hsl(var(--accent-cyan))' }} />
                 <h3 className="text-lg font-semibold font-heading">Resume</h3>
               </div>
               <p className="text-sm text-muted-foreground mb-4">
@@ -249,9 +274,17 @@ export default function Contact() {
               <Button
                 asChild
                 variant="outline"
-                className="w-full border-accent-purple/30 hover:bg-accent-purple/10 hover:border-accent-purple/50"
+                className="w-full transition-all duration-300"
+                style={{
+                  borderColor: 'hsl(var(--accent-cyan) / 0.3)',
+                }}
               >
-                <a href={RESUME_LINK} target="_blank" rel="noopener noreferrer">
+                <a 
+                  href={RESUME_LINK} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:bg-accent-cyan/10"
+                >
                   <FileText className="w-4 h-4 mr-2" />
                   View Resume
                 </a>
@@ -266,7 +299,13 @@ export default function Contact() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="p-6 md:p-8 rounded-lg border border-accent-blue/20 bg-accent-blue/5">
+            <div 
+              className="p-6 md:p-8 rounded-lg border"
+              style={{
+                borderColor: 'hsl(var(--accent-blue) / 0.2)',
+                backgroundColor: 'hsl(var(--accent-blue) / 0.05)',
+              }}
+            >
               <h3 className="text-xl font-semibold mb-6 font-heading">
                 Send Me a Message
               </h3>
@@ -333,7 +372,10 @@ export default function Contact() {
                   type="submit"
                   disabled={isSubmitting}
                   variant="outline"
-                  className="w-full py-6 border-accent-blue/30 hover:bg-accent-blue/10 hover:border-accent-blue/50"
+                  className="w-full py-6 transition-all duration-300 hover:bg-accent-blue/10"
+                  style={{
+                    borderColor: 'hsl(var(--accent-blue) / 0.3)',
+                  }}
                 >
                   {isSubmitting ? (
                     <span className="flex items-center gap-2">
@@ -363,9 +405,9 @@ export default function Contact() {
           viewport={{ once: true }}
           className="flex justify-center mt-16"
         >
-          <p className="text-sm text-muted-foreground/50 uppercase tracking-widest font-mono">
+          <span className="text-sm font-mono text-muted-foreground/50">
             Let's build something great together
-          </p>
+          </span>
         </motion.div>
       </div>
     </section>
