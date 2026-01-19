@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion';
-import { MapPin, Calendar, Briefcase } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { MapPin, Calendar, Briefcase, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface ExperienceCardProps {
   company: string;
@@ -10,6 +11,8 @@ interface ExperienceCardProps {
   highlights: string[];
 }
 
+const INITIAL_HIGHLIGHTS_COUNT = 3;
+
 const ExperienceCard = ({ 
   company, 
   role, 
@@ -18,6 +21,10 @@ const ExperienceCard = ({
   tech, 
   highlights
 }: ExperienceCardProps) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const hasMoreHighlights = highlights.length > INITIAL_HIGHLIGHTS_COUNT;
+  const visibleHighlights = isExpanded ? highlights : highlights.slice(0, INITIAL_HIGHLIGHTS_COUNT);
+
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
@@ -65,20 +72,44 @@ const ExperienceCard = ({
 
         {/* Highlights */}
         <ul className="mt-4 space-y-2">
-          {highlights.map((highlight, i) => (
-            <motion.li
-              key={i}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 + i * 0.1 }}
-              className="text-sm text-muted-foreground leading-relaxed flex items-start gap-2"
-            >
-              <span className="text-experience-accent flex-shrink-0 leading-relaxed">•</span>
-              <span>{highlight}</span>
-            </motion.li>
-          ))}
+          <AnimatePresence initial={false}>
+            {visibleHighlights.map((highlight, i) => (
+              <motion.li
+                key={highlight}
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.2 }}
+                className="text-sm text-muted-foreground leading-relaxed flex items-start gap-2"
+              >
+                <span className="text-experience-accent flex-shrink-0 leading-relaxed">•</span>
+                <span>{highlight}</span>
+              </motion.li>
+            ))}
+          </AnimatePresence>
         </ul>
+
+        {/* Read More / Show Less button */}
+        {hasMoreHighlights && (
+          <motion.button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="mt-4 flex items-center gap-1.5 text-sm font-medium text-experience-accent hover:text-experience-accent/80 transition-colors"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            {isExpanded ? (
+              <>
+                <span>Show less</span>
+                <ChevronUp className="w-4 h-4" />
+              </>
+            ) : (
+              <>
+                <span>Show {highlights.length - INITIAL_HIGHLIGHTS_COUNT} more</span>
+                <ChevronDown className="w-4 h-4" />
+              </>
+            )}
+          </motion.button>
+        )}
       </div>
     </motion.div>
   );

@@ -122,10 +122,8 @@ const About = () => {
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
+                    initial={{ opacity: 1 }}
+                    animate={{ opacity: 1 }}
                     className="group block p-4 rounded-lg border border-accent-blue/20 bg-accent-blue/5 hover:bg-accent-blue/10 hover:border-accent-blue/40 transition-all duration-300"
                   >
                     <p className="text-foreground font-medium group-hover:text-accent-blue transition-colors">

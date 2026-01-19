@@ -4,6 +4,7 @@ import TextReveal from "@/components/ui/TextReveal";
 import SkillNode from "@/components/ui/SkillNode";
 import ConstellationLines from "@/components/ui/ConstellationLines";
 import SkillLegend from "@/components/ui/SkillLegend";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Skill data with cleaner clustered positions
 const skillsData = [
@@ -141,8 +142,77 @@ const generateConnections = () => {
   return connections;
 };
 
+// Mobile grid view component
+const MobileSkillsGrid = ({ 
+  skills, 
+  activeCategory 
+}: { 
+  skills: typeof skillsData; 
+  activeCategory: string | null;
+}) => {
+  const groupedSkills = useMemo(() => {
+    const groups: Record<string, typeof skillsData> = {};
+    skills.forEach((skill) => {
+      if (!groups[skill.category]) {
+        groups[skill.category] = [];
+      }
+      groups[skill.category].push(skill);
+    });
+    return groups;
+  }, [skills]);
+
+  const categoriesToShow = activeCategory 
+    ? [activeCategory] 
+    : Object.keys(groupedSkills);
+
+  return (
+    <div className="space-y-6">
+      {categoriesToShow.map((category, catIndex) => (
+        <motion.div
+          key={category}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: catIndex * 0.1 }}
+          className="space-y-3"
+        >
+          <div className="flex items-center gap-2">
+            <div 
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: categoryColors[category] }}
+            />
+            <h3 className="text-sm font-mono uppercase tracking-wider text-muted-foreground">
+              {category}
+            </h3>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {groupedSkills[category]?.map((skill, i) => (
+              <motion.span
+                key={skill.name}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.03 }}
+                className="px-3 py-1.5 text-sm rounded-full border backdrop-blur-sm"
+                style={{
+                  borderColor: `${categoryColors[skill.category]}40`,
+                  backgroundColor: `${categoryColors[skill.category]}15`,
+                  color: categoryColors[skill.category],
+                }}
+              >
+                {skill.name}
+              </motion.span>
+            ))}
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  );
+};
+
 const Skills = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const isMobile = useIsMobile();
 
   const connections = useMemo(() => generateConnections(), []);
 
@@ -220,31 +290,35 @@ const Skills = () => {
           <SkillLegend categories={categories} activeCategory={activeCategory} onCategoryHover={setActiveCategory} />
         </div>
 
-        {/* Constellation Container */}
-        <motion.div
-          className="relative w-full aspect-[16/10] md:aspect-[2/1] min-h-[400px] md:min-h-[500px]"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          {/* Connection lines */}
-          <ConstellationLines connections={filteredConnections} />
+        {/* Conditional rendering: Constellation for desktop, Grid for mobile */}
+        {isMobile ? (
+          <MobileSkillsGrid skills={filteredSkills} activeCategory={activeCategory} />
+        ) : (
+          <motion.div
+            className="relative w-full aspect-[16/10] md:aspect-[2/1] min-h-[400px] md:min-h-[500px]"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            {/* Connection lines */}
+            <ConstellationLines connections={filteredConnections} />
 
-          {/* Skill nodes */}
-          {filteredSkills.map((skill, index) => (
-            <SkillNode
-              key={skill.name}
-              name={skill.name}
-              category={skill.category}
-              color={categoryColors[skill.category]}
-              size={skill.size}
-              x={skill.x}
-              y={skill.y}
-              delay={index * 0.03}
-            />
-          ))}
-        </motion.div>
+            {/* Skill nodes */}
+            {filteredSkills.map((skill, index) => (
+              <SkillNode
+                key={skill.name}
+                name={skill.name}
+                category={skill.category}
+                color={categoryColors[skill.category]}
+                size={skill.size}
+                x={skill.x}
+                y={skill.y}
+                delay={index * 0.03}
+              />
+            ))}
+          </motion.div>
+        )}
 
         {/* Total skills count */}
         <motion.div
