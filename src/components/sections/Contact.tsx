@@ -220,16 +220,12 @@ export default function Contact() {
             className="space-y-4"
           >
             {/* Contact Links - styled like About section achievements */}
-            {contactLinks.map((link, index) => (
-              <motion.a
+            {contactLinks.map((link) => (
+              <a
                 key={link.label}
                 href={link.href}
                 target={link.label !== "Phone" ? "_blank" : undefined}
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="group block p-4 rounded-lg border transition-all duration-300"
                 style={{
                   borderColor: "hsl(var(--accent-blue) / 0.2)",
@@ -259,7 +255,7 @@ export default function Contact() {
                   </div>
                   <ExternalLink className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
-              </motion.a>
+              </a>
             ))}
 
             {/* Resume Section - styled consistently */}
