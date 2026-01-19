@@ -25,6 +25,6 @@ npm run build
 
 ## Contact
 
-- Email: neelpsanghvi21@gmail.com
+- Email: neel07sanghvi@gmail.com
 - LinkedIn: [Neel Sanghvi](https://www.linkedin.com/in/neel-sanghvi/)
 - GitHub: [neelp2212](https://github.com/neelp2212)
