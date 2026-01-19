@@ -148,7 +148,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative min-h-screen py-24 md:py-32 overflow-hidden"
+      className="relative min-h-screen py-16 md:py-24 lg:py-32 overflow-hidden"
       style={{ backgroundColor: "hsl(var(--contact-bg))" }}
     >
       {/* Static distant stars background - matching Skills section */}
@@ -166,11 +166,11 @@ export default function Contact() {
       </div>
 
       {/* Nebula glow - matching Skills section style */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-20 blur-3xl bg-gradient-radial from-accent-purple/30 via-accent-blue/20 to-transparent" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[600px] lg:w-[800px] h-[400px] md:h-[600px] lg:h-[800px] rounded-full opacity-20 blur-3xl bg-gradient-radial from-accent-purple/30 via-accent-blue/20 to-transparent" />
 
       {/* Ambient glow - matching other sections */}
       <motion.div
-        className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full opacity-10"
+        className="absolute top-1/4 right-1/4 w-48 md:w-72 lg:w-96 h-48 md:h-72 lg:h-96 rounded-full opacity-10"
         style={{
           background: "radial-gradient(circle, hsl(var(--accent-blue)) 0%, transparent 70%)",
         }}
@@ -181,12 +181,12 @@ export default function Contact() {
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="container relative z-10 mx-auto px-6 max-w-5xl">
+      <div className="container relative z-10 mx-auto px-4 md:px-6 max-w-5xl">
         {/* Section Header - matching other sections */}
-        <div className="text-center mb-16 md:mb-24">
+        <div className="text-center mb-10 md:mb-16 lg:mb-24">
           <TextReveal>
             <motion.span
-              className="inline-block px-4 py-1.5 text-sm font-mono border rounded-full mb-6"
+              className="inline-block px-3 md:px-4 py-1 md:py-1.5 text-xs md:text-sm font-mono border rounded-full mb-4 md:mb-6"
               style={{
                 color: "hsl(var(--accent-cyan))",
                 borderColor: "hsl(var(--accent-cyan) / 0.3)",
@@ -200,24 +200,24 @@ export default function Contact() {
           </TextReveal>
 
           <TextReveal delay={0.1}>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-foreground">Get In Touch</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-heading font-bold text-foreground">Get In Touch</h2>
           </TextReveal>
 
           <TextReveal delay={0.2}>
-            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="mt-3 md:mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
               Feel free to contact me for any work or suggestions
             </p>
           </TextReveal>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
           {/* Contact Info Side */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-4"
+            className="space-y-3 md:space-y-4"
           >
             {/* Contact Links - styled like About section achievements */}
             {contactLinks.map((link) => (
@@ -226,7 +226,7 @@ export default function Contact() {
                 href={link.href}
                 target={link.label !== "Phone" ? "_blank" : undefined}
                 rel="noopener noreferrer"
-                className="group block p-4 rounded-lg border transition-all duration-300"
+                className="group block p-3 md:p-4 rounded-lg border transition-all duration-300"
                 style={{
                   borderColor: "hsl(var(--accent-blue) / 0.2)",
                   backgroundColor: "hsl(var(--accent-blue) / 0.05)",
@@ -240,20 +240,20 @@ export default function Contact() {
                   e.currentTarget.style.borderColor = "hsl(var(--accent-blue) / 0.2)";
                 }}
               >
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3 md:gap-4">
                   <div
-                    className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+                    className="flex-shrink-0 w-9 h-9 md:w-10 md:h-10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
                     style={{ backgroundColor: "hsl(var(--accent-blue) / 0.15)" }}
                   >
-                    <link.icon className="w-5 h-5" style={{ color: "hsl(var(--accent-blue))" }} />
+                    <link.icon className="w-4 h-4 md:w-5 md:h-5" style={{ color: "hsl(var(--accent-blue))" }} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-muted-foreground">{link.label}</p>
-                    <p className="text-foreground truncate group-hover:text-accent-blue transition-colors">
+                    <p className="text-xs md:text-sm text-muted-foreground">{link.label}</p>
+                    <p className="text-sm md:text-base text-foreground truncate group-hover:text-accent-blue transition-colors">
                       {link.value}
                     </p>
                   </div>
-                  <ExternalLink className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <ExternalLink className="w-4 h-4 text-muted-foreground opacity-50 md:opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
                 </div>
               </a>
             ))}
@@ -264,17 +264,17 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="p-6 rounded-lg border mt-6"
+              className="p-4 md:p-6 rounded-lg border mt-4 md:mt-6"
               style={{
                 borderColor: "hsl(var(--accent-cyan) / 0.2)",
                 backgroundColor: "hsl(var(--accent-cyan) / 0.05)",
               }}
             >
-              <div className="flex items-center gap-3 mb-3">
-                <FileText className="w-5 h-5" style={{ color: "hsl(var(--accent-cyan))" }} />
-                <h3 className="text-lg font-semibold font-heading">Resume</h3>
+              <div className="flex items-center gap-3 mb-2 md:mb-3">
+                <FileText className="w-4 h-4 md:w-5 md:h-5" style={{ color: "hsl(var(--accent-cyan))" }} />
+                <h3 className="text-base md:text-lg font-semibold font-heading">Resume</h3>
               </div>
-              <p className="text-sm text-muted-foreground mb-4">View or download my resume from the link below:</p>
+              <p className="text-xs md:text-sm text-muted-foreground mb-3 md:mb-4">View or download my resume from the link below:</p>
               <Button
                 asChild
                 variant="outline"
@@ -299,17 +299,17 @@ export default function Contact() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <div
-              className="p-6 md:p-8 rounded-lg border"
+              className="p-4 md:p-6 lg:p-8 rounded-lg border"
               style={{
                 borderColor: "hsl(var(--accent-blue) / 0.2)",
                 backgroundColor: "hsl(var(--accent-blue) / 0.05)",
               }}
             >
-              <h3 className="text-xl font-semibold mb-6 font-heading">Send Me a Message</h3>
+              <h3 className="text-lg md:text-xl font-semibold mb-4 md:mb-6 font-heading">Send Me a Message</h3>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-muted-foreground mb-2">
+                  <label htmlFor="name" className="block text-xs md:text-sm font-medium text-muted-foreground mb-1.5 md:mb-2">
                     Name
                   </label>
                   <Input
@@ -318,13 +318,13 @@ export default function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Your name"
-                    className="bg-background/50 border-border/50 focus:border-accent-blue/50 placeholder:text-muted-foreground/50"
+                    className="bg-background/50 border-border/50 focus:border-accent-blue/50 placeholder:text-muted-foreground/50 text-sm md:text-base"
                   />
-                  {errors.name && <p className="mt-1 text-sm text-destructive">{errors.name}</p>}
+                  {errors.name && <p className="mt-1 text-xs md:text-sm text-destructive">{errors.name}</p>}
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-muted-foreground mb-2">
+                  <label htmlFor="email" className="block text-xs md:text-sm font-medium text-muted-foreground mb-1.5 md:mb-2">
                     Email
                   </label>
                   <Input
@@ -334,13 +334,13 @@ export default function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="your@email.com"
-                    className="bg-background/50 border-border/50 focus:border-accent-blue/50 placeholder:text-muted-foreground/50"
+                    className="bg-background/50 border-border/50 focus:border-accent-blue/50 placeholder:text-muted-foreground/50 text-sm md:text-base"
                   />
-                  {errors.email && <p className="mt-1 text-sm text-destructive">{errors.email}</p>}
+                  {errors.email && <p className="mt-1 text-xs md:text-sm text-destructive">{errors.email}</p>}
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-muted-foreground mb-2">
+                  <label htmlFor="message" className="block text-xs md:text-sm font-medium text-muted-foreground mb-1.5 md:mb-2">
                     Message
                   </label>
                   <Textarea
@@ -349,27 +349,29 @@ export default function Contact() {
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Your message..."
-                    rows={5}
-                    className="bg-background/50 border-border/50 focus:border-accent-blue/50 placeholder:text-muted-foreground/50 resize-none"
+                    rows={4}
+                    className="bg-background/50 border-border/50 focus:border-accent-blue/50 placeholder:text-muted-foreground/50 resize-none text-sm md:text-base"
                   />
-                  {errors.message && <p className="mt-1 text-sm text-destructive">{errors.message}</p>}
+                  {errors.message && <p className="mt-1 text-xs md:text-sm text-destructive">{errors.message}</p>}
                 </div>
 
-                <div className="pt-2">
-                  <HCaptcha />
+                <div className="pt-1 md:pt-2 flex justify-center">
+                  <div className="transform scale-90 md:scale-100 origin-center">
+                    <HCaptcha />
+                  </div>
                 </div>
 
                 <Button
                   type="submit"
                   disabled={isSubmitting}
                   variant="outline"
-                  className="w-full py-6 transition-all duration-300 hover:bg-accent-blue/10"
+                  className="w-full py-5 md:py-6 transition-all duration-300 hover:bg-accent-blue/10"
                   style={{
                     borderColor: "hsl(var(--accent-blue) / 0.3)",
                   }}
                 >
                   {isSubmitting ? (
-                    <span className="flex items-center gap-2">
+                    <span className="flex items-center gap-2 text-sm md:text-base">
                       <motion.div
                         animate={{ rotate: 360 }}
                         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
@@ -378,7 +380,7 @@ export default function Contact() {
                       Sending...
                     </span>
                   ) : (
-                    <span className="flex items-center gap-2">
+                    <span className="flex items-center gap-2 text-sm md:text-base">
                       <Send className="w-4 h-4" />
                       Send Message
                     </span>
@@ -394,9 +396,9 @@ export default function Contact() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="flex justify-center mt-16"
+          className="flex justify-center mt-10 md:mt-16"
         >
-          <span className="text-sm font-mono text-muted-foreground/50">Let's build something great together</span>
+          <span className="text-xs md:text-sm font-mono text-muted-foreground/50">Let's build something great together</span>
         </motion.div>
       </div>
     </section>
