@@ -6,6 +6,17 @@ import ExperienceCard from '@/components/ui/ExperienceCard';
 
 const experiences = [
   {
+    company: "6thstreet",
+    role: "Software Engineer",
+    period: "10/2025 – 02/2026",
+    location: "Bengaluru, India",
+    tech: ["ReactJs", "TypeScript", "Typesense", "React Native"],
+    highlights: [
+      "Migrated product search infrastructure from Algolia SDK to Typesense, re-architecting query pipelines and index configurations for reduced latency across high-traffic catalog pages",
+      "Delivered core e-commerce flows including Product Listing, Product Detail Pages, and authentication with session management, while extending feature parity to mobile by refactoring multiple UI screens in React Native"
+    ]
+  },
+  {
     company: "Neomenta Ltd.",
     role: "Full Stack Engineer",
     period: "02/2023 – 03/2025",
@@ -39,18 +50,18 @@ const experiences = [
 
 const Experience = () => {
   return (
-    <section 
-      id="experience" 
+    <section
+      id="experience"
       className="relative min-h-screen py-24 md:py-32 overflow-hidden bg-section-experience"
     >
       {/* Subtle gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-about/50 via-transparent to-transparent" />
-      
+
       {/* Ambient glow */}
       <motion.div
         className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-10"
-        style={{ 
-          background: 'radial-gradient(circle, hsl(var(--experience-accent)) 0%, transparent 70%)' 
+        style={{
+          background: 'radial-gradient(circle, hsl(var(--experience-accent)) 0%, transparent 70%)'
         }}
         animate={{
           scale: [1, 1.2, 1],
@@ -63,7 +74,7 @@ const Experience = () => {
         {/* Section Header */}
         <div className="text-center mb-16 md:mb-24">
           <TextReveal>
-            <motion.span 
+            <motion.span
               className="inline-block px-4 py-1.5 text-sm font-mono text-experience-accent border border-experience-accent/30 rounded-full mb-6"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -72,13 +83,13 @@ const Experience = () => {
               The Journey
             </motion.span>
           </TextReveal>
-          
+
           <TextReveal delay={0.1}>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-foreground">
               Experience
             </h2>
           </TextReveal>
-          
+
           <TextReveal delay={0.2}>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
               A path of growth, learning, and impactful contributions
